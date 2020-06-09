@@ -100,8 +100,8 @@ export class Controller {
 			response.json({
 				message: "success",
 				deleted_request: { iconRequest }
-			})
-			console.log(queryResult.rows)
+			});
+			console.log(queryResult.rows);
 		} catch (error) {
 			console.error(error.message);
 		}
@@ -124,7 +124,7 @@ export class Controller {
 			console.error(error.message);
 		}
 	}
-	
+
 	async findIconRequestById(id: string): Promise<IconRequest> {
 		try {
 			const queryResult = await pool.query(
