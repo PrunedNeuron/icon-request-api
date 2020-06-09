@@ -1,7 +1,5 @@
 import { Controller } from "./../../controller/controller";
-import IconRequest from "../../model/icon.request.model";
 import express from "express";
-import { pool } from "../../database/database";
 
 export class Router {
 	public router: express.Router;

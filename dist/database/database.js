@@ -14,6 +14,9 @@ const connectionURI = `postgresql://${env_configurer_1.DB_USER}:${env_configurer
 }); */
 exports.pool = new pg_1.Pool({
     connectionString: isProduction ? process.env.DATABASE_URL : connectionURI,
-    ssl: isProduction
+    ssl: {
+        rejectUnauthorized: false
+    }
+    //isProduction
 });
 //# sourceMappingURL=database.js.map
