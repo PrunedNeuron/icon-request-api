@@ -1,6 +1,8 @@
 import * as dotenv from "dotenv";
 
-if (process.env.NODE_ENV !== "production") dotenv.config();
+// if (process.env.NODE_ENV !== "production") dotenv.config();
+
+dotenv.config();
 
 export const DB_HOST = process.env.DB_HOST;
 export const DB_USER = process.env.DB_USER;
