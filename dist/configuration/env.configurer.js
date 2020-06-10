@@ -21,8 +21,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PORT = exports.DEV_PORT = exports.DB_DATABASE = exports.DB_PORT = exports.DB_PASS = exports.DB_USER = exports.DB_HOST = void 0;
 const dotenv = __importStar(require("dotenv"));
-if (process.env.NODE_ENV !== "production")
-    dotenv.config();
+// if (process.env.NODE_ENV !== "production") dotenv.config();
+dotenv.config();
 exports.DB_HOST = process.env.DB_HOST;
 exports.DB_USER = process.env.DB_USER;
 exports.DB_PASS = process.env.DB_PASS;
