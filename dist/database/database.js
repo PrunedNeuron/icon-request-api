@@ -6,6 +6,7 @@ const pg_1 = require("pg");
 const isProduction = process.env.NODE_ENV === "production";
 exports.connectionURI = `postgresql://${env_configurer_1.DB_USER}:${env_configurer_1.DB_PASSWORD}@${env_configurer_1.DB_HOST}:${env_configurer_1.DB_PORT}/${env_configurer_1.DB_DATABASE}`;
 console.log("Connection URI = " + exports.connectionURI);
+console.log("isProduction = " + isProduction);
 /* export const pool: Pool = new Pool({
     user: DB_USER,
     password: DB_PASS,
