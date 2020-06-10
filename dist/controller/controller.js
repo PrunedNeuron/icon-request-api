@@ -27,13 +27,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __asyncValues = (this && this.__asyncValues) || function (o) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var m = o[Symbol.asyncIterator], i;
-    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
-    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -51,24 +44,13 @@ class Controller {
         });
     }
     addIconRequests(request, response) {
-        var e_1, _a;
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const iconRequests = request.body["icons"];
-                try {
-                    for (var _b = __asyncValues(request.body["icons"]), _c; _c = yield _b.next(), !_c.done;) {
-                        const iconRequest = _c.value;
-                        // Add requests to the database
-                        const queryResult = yield database_1.pool.query("INSERT INTO icon_requests (name, component, url) VALUES ($1, $2, $3) RETURNING *", [iconRequest.name, iconRequest.component, iconRequest.url]);
-                        console.log(queryResult.rows[0]);
-                    }
-                }
-                catch (e_1_1) { e_1 = { error: e_1_1 }; }
-                finally {
-                    try {
-                        if (_c && !_c.done && (_a = _b.return)) yield _a.call(_b);
-                    }
-                    finally { if (e_1) throw e_1.error; }
+                for (const iconRequest of request.body["icons"]) {
+                    // Add requests to the database
+                    const queryResult = yield database_1.pool.query("INSERT INTO icon_requests (name, component, url) VALUES ($1, $2, $3) RETURNING *", [iconRequest.name, iconRequest.component, iconRequest.url]);
+                    console.log(queryResult.rows[0]);
                 }
                 response.status(HttpStatusCodes.OK).json({
                     status: "SUCCESS",

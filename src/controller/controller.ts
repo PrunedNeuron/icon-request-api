@@ -18,7 +18,7 @@ export class Controller {
 		try {
 			const iconRequests: IconRequest[] = request.body["icons"];
 
-			for await (const iconRequest of request.body["icons"]) {
+			for (const iconRequest of request.body["icons"]) {
 				// Add requests to the database
 				const queryResult = await pool.query(
 					"INSERT INTO icon_requests (name, component, url) VALUES ($1, $2, $3) RETURNING *",
