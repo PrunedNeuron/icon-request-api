@@ -1,3 +1,5 @@
+import * as HttpStatusCodes from "http-status-codes";
+
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Request, Response } from "express";
 
@@ -5,16 +7,38 @@ import IconRequest from "../model/icon.request.model";
 import { pool } from "../database/database";
 
 export class Controller {
-	async home(request: Request, response: Response) {
-		response.status(200).send({
+	async notFound(request: Request, response: Response) {
+		response.status(404).send({
 			message:
-				"GET request received for /amphetamine. However, this is not a URL the API uses."
+				"HTTP request received. However, this is not a URL the API uses. Try /amphetamine/api/v1/ instead"
 		});
+	}
+
+	async addIconRequests(request: Request, response: Response) {
+		try {
+			const iconRequests: IconRequest[] = request.body["icons"];
+
+			for await (const iconRequest of request.body["icons"]) {
+				// Add requests to the database
+				const queryResult = await pool.query(
+					"INSERT INTO icon_requests (name, component, url) VALUES ($1, $2, $3) RETURNING *",
+					[iconRequest.name, iconRequest.component, iconRequest.url]
+				);
+
+				console.log(queryResult.rows[0]);
+			}
+			response.status(HttpStatusCodes.OK).json({
+				status: "SUCCESS",
+				message: `Added ${iconRequests.length} icon requests.`
+			});
+		} catch (error) {
+			console.error(error.message);
+		}
 	}
 	async addIconRequest(request: Request, response: Response) {
 		try {
-			const body = request.body;
-			console.log(request.body);
+			const body = JSON.parse(request.body);
+			console.log(body);
 			const iconRequest: IconRequest = new IconRequest(
 				body["name"],
 				body["component"],
@@ -39,6 +63,7 @@ export class Controller {
 	async getIconRequests(request: Request, response: Response) {
 		try {
 			const queryResult = await pool.query("SELECT * FROM icon_requests");
+			// response.json(queryResult.rows);
 			response.json(queryResult.rows);
 		} catch (error) {
 			console.error(error.message);
@@ -138,6 +163,22 @@ export class Controller {
 				result["url"]
 			);
 			return iconRequest;
+		} catch (error) {
+			console.error(error.message);
+		}
+	}
+
+	async getIconRequestByName(request: Request, response: Response) {
+		try {
+			const { name } = request.params;
+			const param = "%" + name.toLowerCase() + "%";
+			console.log(name);
+			const queryResult = await pool.query(
+				"SELECT * FROM icon_requests WHERE LOWER(name) LIKE $1",
+				[param]
+			);
+			console.log(queryResult.rows);
+			response.json(queryResult.rows);
 		} catch (error) {
 			console.error(error.message);
 		}

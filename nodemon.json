@@ -1,8 +1,8 @@
 {
 	"restartable": "rs",
 	"ext": "ts,js,json",
-	"ignore": [".git", "node_modules/**/node_modules", "*.test.ts"],
-	"watch": ["src"],
+	"ignore": [".git", "node_modules/**/node_modules", "*.test.ts", "dist", ".vscode", "yarn.lock"],
+	"watch": ["."],
 	"delay": "2",
 	"verbose": true,
 	"exec": "tsc && node dist/server.js"

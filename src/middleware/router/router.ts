@@ -12,19 +12,25 @@ export class Router {
 	public routes(app: express.Application): void {
 		console.log("Routing now...");
 
-		app.route("/").get(this.controller.home);
+		// https://icon-requests-api.herokuapp.com/amphetamine/api/v1
 
-		app.route("/amphetamine")
+		app.route("/amphetamine/api/v1")
 			.get(this.controller.getIconRequests)
-			.post(this.controller.addIconRequest);
+			.post(this.controller.addIconRequests);
 
-		app.route("/amphetamine/id/:id")
+		app.route("/amphetamine/api/v1/id/:id")
 			.get(this.controller.getIconRequestById)
 			.delete(this.controller.deleteIconRequestById);
 
-		app.route("/amphetamine/component/:component")
+		app.route("/amphetamine/api/v1/component/:component")
 			.get(this.controller.getIconRequestByComponent)
 			.delete(this.controller.deleteIconRequestByComponent);
+
+		app.route("/amphetamine/api/v1/name/:name").get(
+			this.controller.getIconRequestByName
+		);
+
+		app.route("/*").all(this.controller.notFound);
 	}
 }
 
