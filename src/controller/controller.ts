@@ -15,22 +15,31 @@ export class Controller {
 	}
 
 	async addIconRequests(request: Request, response: Response) {
+
+		console.log("Entered addIconRequests().")
 		try {
+			console.log("Entered try-catch.")
 			const iconRequests: IconRequest[] = request.body["icons"];
 
+			console.log("Icon requests assigned to variable.")
+
 			for (const iconRequest of request.body["icons"]) {
+				console.log("Entered for of loop.")
 				// Add requests to the database
 				const queryResult = await pool.query(
 					"INSERT INTO icon_requests (name, component, url) VALUES ($1, $2, $3) RETURNING *",
 					[iconRequest.name, iconRequest.component, iconRequest.url]
 				);
 
+				console.log("Completed postgres query await")
 				console.log(queryResult.rows[0]);
 			}
+			console.log("Exited for of loop.")
 			response.status(HttpStatusCodes.OK).json({
 				status: "SUCCESS",
 				message: `Added ${iconRequests.length} icon requests.`
 			});
+			console.log("DONE.")
 		} catch (error) {
 			console.error(error.message);
 		}
