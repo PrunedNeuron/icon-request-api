@@ -45,17 +45,29 @@ class Controller {
     }
     addIconRequests(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log("Entered addIconRequests().");
             try {
+                console.log("Entered try-catch.");
                 const iconRequests = request.body["icons"];
-                for (const iconRequest of request.body["icons"]) {
+                console.log("Icon requests assigned to variable.");
+                let i = 0;
+                while (i < iconRequests.length) {
+                    console.log("Entered loop. i = " + i);
                     // Add requests to the database
+                    const iconRequest = iconRequests[i];
+                    console.log("About to query the database.");
                     const queryResult = yield database_1.pool.query("INSERT INTO icon_requests (name, component, url) VALUES ($1, $2, $3) RETURNING *", [iconRequest.name, iconRequest.component, iconRequest.url]);
+                    console.log("Queried the database.");
+                    console.log("Completed postgres query await");
                     console.log(queryResult.rows[0]);
+                    i++;
                 }
+                console.log("Exited loop.");
                 response.status(HttpStatusCodes.OK).json({
                     status: "SUCCESS",
                     message: `Added ${iconRequests.length} icon requests.`
                 });
+                console.log("DONE.");
             }
             catch (error) {
                 console.error(error.message);

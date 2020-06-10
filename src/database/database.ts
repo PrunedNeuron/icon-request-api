@@ -1,7 +1,7 @@
 import {
 	DB_DATABASE,
 	DB_HOST,
-	DB_PASS,
+	DB_PASSWORD,
 	DB_PORT,
 	DB_USER
 } from "../configuration/env.configurer";
@@ -10,7 +10,8 @@ import { Pool } from "pg";
 
 const isProduction = process.env.NODE_ENV === "production";
 
-export const connectionURI = `postgresql://${DB_USER}:${DB_PASS}@${DB_HOST}:${DB_PORT}/${DB_DATABASE}`;
+export const connectionURI = `postgresql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_DATABASE}`;
+console.log("Connection URI = " + connectionURI);
 
 /* export const pool: Pool = new Pool({
 	user: DB_USER,
@@ -20,10 +21,12 @@ export const connectionURI = `postgresql://${DB_USER}:${DB_PASS}@${DB_HOST}:${DB
 	database: DB_DATABASE
 }); */
 
-export const pool = new Pool({
-	connectionString: isProduction ? process.env.DATABASE_URL : connectionURI,
-	ssl: {
-		rejectUnauthorized: isProduction
+export const pool = new Pool(
+	{
+		connectionString: isProduction
+			? process.env.DATABASE_URL
+			: connectionURI,
+		ssl: isProduction ? { rejectUnauthorized: isProduction } : isProduction
 	}
 	//isProduction
-});
+);
