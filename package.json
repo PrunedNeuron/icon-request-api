@@ -10,7 +10,7 @@
 		"build": "tsc",
 		"develop": "concurrently 'tsc' 'nodemon'",
 		"serve": "nodemon",
-		"start": "node ./dist/server.js"
+		"start": "node dist/server.js"
 	},
 	"devDependencies": {
 		"@types/cors": "^2.8.6",
