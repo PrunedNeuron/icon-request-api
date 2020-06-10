@@ -14,14 +14,20 @@ console.log("isProduction = " + isProduction);
     port: parseInt(DB_PORT),
     database: DB_DATABASE
 }); */
-exports.pool = new pg_1.Pool({
-    connectionString: isProduction
-        ? process.env.DATABASE_URL
-        : exports.connectionURI,
-    ssl: {
-        rejectUnauthorized: false
+/* export const pool = new Pool(
+    {
+        connectionString: isProduction
+            ? process.env.DATABASE_URL
+            : connectionURI,
+        ssl: {
+            rejectUnauthorized: false
+        }
     }
-}
-//isProduction
+    //isProduction
 );
+ */
+exports.pool = new pg_1.Pool({
+    connectionString: process.env.DATABASE_URL || exports.connectionURI,
+    ssl: process.env.DATABASE_URL ? true : false
+});
 //# sourceMappingURL=database.js.map

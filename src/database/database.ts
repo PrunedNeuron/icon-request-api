@@ -23,7 +23,7 @@ console.log("isProduction = " + isProduction);
 	database: DB_DATABASE
 }); */
 
-export const pool = new Pool(
+/* export const pool = new Pool(
 	{
 		connectionString: isProduction
 			? process.env.DATABASE_URL
@@ -34,3 +34,9 @@ export const pool = new Pool(
 	}
 	//isProduction
 );
+ */
+
+export const pool = new Pool({
+	connectionString: process.env.DATABASE_URL || connectionURI,
+	ssl: process.env.DATABASE_URL ? true : false
+});
