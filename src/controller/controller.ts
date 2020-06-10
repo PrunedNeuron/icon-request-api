@@ -22,22 +22,19 @@ export class Controller {
 			const iconRequests: IconRequest[] = request.body["icons"];
 
 			console.log("Icon requests assigned to variable.");
-			let i = 0;
-			while (i < iconRequests.length) {
-				console.log("Entered loop. i = " + i);
+			iconRequests.forEach((iconRequest) => {
+				console.log("Entered loop.");
 				// Add requests to the database
-				const iconRequest: IconRequest = iconRequests[i];
 				console.log("About to query the database.");
-				const queryResult = await pool.query(
+				console.log("IconRequest = " + iconRequest);
+				const queryResult = pool.query(
 					"INSERT INTO icon_requests (name, component, url) VALUES ($1, $2, $3) RETURNING *",
 					[iconRequest.name, iconRequest.component, iconRequest.url]
 				);
 				console.log("Queried the database.");
-
 				console.log("Completed postgres query await");
-				console.log(queryResult.rows[0]);
-				i++;
-			}
+				console.log(queryResult);
+			});
 			console.log("Exited loop.");
 			response.status(HttpStatusCodes.OK).json({
 				status: "SUCCESS",
