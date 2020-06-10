@@ -18,7 +18,9 @@ exports.pool = new pg_1.Pool({
     connectionString: isProduction
         ? process.env.DATABASE_URL
         : exports.connectionURI,
-    ssl: isProduction ? { rejectUnauthorized: isProduction } : isProduction
+    ssl: {
+        rejectUnauthorized: false
+    }
 }
 //isProduction
 );

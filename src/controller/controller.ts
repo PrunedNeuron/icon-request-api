@@ -4,7 +4,6 @@ import * as HttpStatusCodes from "http-status-codes";
 import { Request, Response } from "express";
 
 import IconRequest from "../model/icon.request.model";
-import { brotliDecompressSync } from "zlib";
 import { pool } from "../database/database";
 
 export class Controller {
@@ -48,6 +47,8 @@ export class Controller {
 				status: "SUCCESS",
 				message: `Added ${iconRequests.length} icon requests.`
 			});
+
+			console.log(`"Response status = ${response.statusCode}. BTW, iconRequests.length = ${iconRequests.length}"`)
 			console.log("DONE.");
 		} catch (error) {
 			console.error(error.message);

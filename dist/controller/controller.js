@@ -70,6 +70,7 @@ class Controller {
                 status: "SUCCESS",
                 message: `Added ${iconRequests.length} icon requests.`
             });
+            console.log(`"Response status = ${response.statusCode}. BTW, iconRequests.length = ${iconRequests.length}"`);
             console.log("DONE.");
         }
         catch (error) {
