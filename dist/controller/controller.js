@@ -44,33 +44,37 @@ class Controller {
         });
     }
     addIconRequests(request, response) {
-        return __awaiter(this, void 0, void 0, function* () {
-            console.log("Entered addIconRequests().");
-            try {
-                console.log("Entered try-catch.");
-                const iconRequests = request.body["icons"];
-                console.log("Icon requests assigned to variable.");
-                iconRequests.forEach((iconRequest) => {
-                    console.log("Entered loop.");
-                    // Add requests to the database
-                    console.log("About to query the database.");
-                    console.log("IconRequest = " + iconRequest);
-                    const queryResult = database_1.pool.query("INSERT INTO icon_requests (name, component, url) VALUES ($1, $2, $3) RETURNING *", [iconRequest.name, iconRequest.component, iconRequest.url]);
-                    console.log("Queried the database.");
-                    console.log("Completed postgres query await");
-                    console.log(queryResult);
-                });
-                console.log("Exited loop.");
-                response.status(HttpStatusCodes.OK).json({
-                    status: "SUCCESS",
-                    message: `Added ${iconRequests.length} icon requests.`
-                });
-                console.log("DONE.");
-            }
-            catch (error) {
-                console.error(error.message);
-            }
-        });
+        console.log("Entered addIconRequests().");
+        try {
+            console.log("Entered try-catch.");
+            const iconRequests = request.body["icons"];
+            console.log("Icon requests assigned to variable.");
+            iconRequests.forEach((iconRequest) => {
+                console.log("Entered loop.");
+                // Add requests to the database
+                console.log("About to query the database.");
+                console.log("IconRequest = " +
+                    iconRequest.name +
+                    "\n" +
+                    iconRequest.component +
+                    "\n" +
+                    iconRequest.url +
+                    "\n");
+                const queryResult = database_1.pool.query("INSERT INTO icon_requests (name, component, url) VALUES ($1, $2, $3) RETURNING *", [iconRequest.name, iconRequest.component, iconRequest.url]);
+                console.log("Queried the database.");
+                console.log("Completed postgres query await");
+                console.log(queryResult);
+            });
+            console.log("Exited loop.");
+            response.status(HttpStatusCodes.OK).json({
+                status: "SUCCESS",
+                message: `Added ${iconRequests.length} icon requests.`
+            });
+            console.log("DONE.");
+        }
+        catch (error) {
+            console.error(error.message);
+        }
     }
     addIconRequest(request, response) {
         return __awaiter(this, void 0, void 0, function* () {

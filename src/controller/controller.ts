@@ -15,7 +15,7 @@ export class Controller {
 		});
 	}
 
-	async addIconRequests(request: Request, response: Response) {
+	addIconRequests(request: Request, response: Response) {
 		console.log("Entered addIconRequests().");
 		try {
 			console.log("Entered try-catch.");
@@ -26,7 +26,15 @@ export class Controller {
 				console.log("Entered loop.");
 				// Add requests to the database
 				console.log("About to query the database.");
-				console.log("IconRequest = " + iconRequest);
+				console.log(
+					"IconRequest = " +
+						iconRequest.name +
+						"\n" +
+						iconRequest.component +
+						"\n" +
+						iconRequest.url +
+						"\n"
+				);
 				const queryResult = pool.query(
 					"INSERT INTO icon_requests (name, component, url) VALUES ($1, $2, $3) RETURNING *",
 					[iconRequest.name, iconRequest.component, iconRequest.url]
