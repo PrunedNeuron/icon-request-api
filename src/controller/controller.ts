@@ -4,13 +4,35 @@ import * as HttpStatusCodes from "http-status-codes";
 import { Request, Response } from "express";
 
 import IconRequest from "../model/icon.request.model";
+import path from "path";
 import { pool } from "../database/database";
 
 export class Controller {
-	async notFound(request: Request, response: Response) {
+	/* homePage(request: Request, response: Response) {
+		response.status(200).send(path.join(__dirname, "../client/public"));
+	} */
+
+	notFound(request: Request, response: Response) {
 		response.status(404).send({
 			message:
 				"HTTP request received. However, this is not a URL the API uses. Try /amphetamine/api/v1/ instead"
+		});
+	}
+
+	compressor(req: Request, res: Response) {
+		res.setHeader("Content-Type", "text/event-stream");
+		res.setHeader("Cache-Control", "no-cache");
+
+		// send a ping approx every 2 seconds
+		const timer = setInterval(function () {
+			res.write("data: ping\n\n");
+
+			// !!! this is the important part
+			res.flush();
+		}, 2000);
+
+		res.on("close", function () {
+			clearInterval(timer);
 		});
 	}
 

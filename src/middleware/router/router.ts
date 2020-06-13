@@ -38,6 +38,8 @@ export class Router {
 			.post(this.controller.notFound)
 			.delete(this.controller.notFound);
 
+		// app.route("/").all(this.controller.homePage);
+
 		app.route("/*").all(this.controller.notFound);
 	}
 }

@@ -4,6 +4,7 @@ import compression from "compression";
 import cors from "cors";
 import express from "express";
 import helmet from "helmet";
+import path from "path";
 import rateLimit from "express-rate-limit";
 
 const isProduction = process.env.NODE_ENV === "production";
@@ -15,7 +16,7 @@ const origin = {
 
 const limiter = rateLimit({
 	windowMs: 1 * 60 * 1000, // 1 minute
-	max: isProduction ? 5 : 1000 // 5 Requests
+	max: isProduction ? 5 : 1000 // 5 Requests / 1000 during development
 });
 
 // Rate limit specific endpoint:
@@ -36,19 +37,45 @@ class App {
 
 	constructor() {
 		this.app = express();
-		this.logger = new Logger();
 		this.attachMiddleware();
+		this.logger = new Logger();
 		this.router = new Router();
 		this.router.routes(this.app);
 	}
 
 	private attachMiddleware(): void {
-		this.app.use(compression());
+		this.compress();
 		this.app.use(express.json());
 		this.app.use(express.urlencoded({ extended: true }));
 		this.app.use(cors());
 		this.app.use(helmet());
 		this.app.use(limiter);
+		console.log(path.join(__dirname, "../client/public"));
+		this.app.use(express.static(path.join(__dirname, "../client/public")));
+
+		if (isProduction) {
+			// Serve static content
+			// npm run build / yarn build
+			this.app.use(express.static(path.join(__dirname, "client/public")));
+			console.log("Dirname = " + __dirname);
+		}
+	}
+	private compress() {
+		const shouldCompress = (req, res) => {
+			if (req.headers["x-no-compression"]) {
+				// don't compress responses if this request header is present
+				return false;
+			}
+
+			// fallback to standard compression
+			return compression.filter(req, res);
+		};
+		this.app.use(
+			compression({
+				filter: shouldCompress,
+				threshold: 0 // kB
+			})
+		);
 	}
 }
 
