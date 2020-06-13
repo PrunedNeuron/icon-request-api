@@ -11,7 +11,7 @@
 		"develop": "concurrently 'yarn build' 'nodemon'",
 		"serve": "nodemon",
 		"start": "node dist/server.js",
-		"heroku-postbuild": "cd client && rm -rf public && yarn install && npx gatsby build"
+		"heroku-postbuild": "cd client && rm -rf public .cache && yarn install && npx gatsby build"
 	},
 	"devDependencies": {
 		"@types/compression": "^1.7.0",
@@ -44,7 +44,7 @@
 		"pg-promise": "^10.5.6"
 	},
 	"engines": {
-		"node": "14.3.0",
+		"node": "12.18.0",
 		"npm": "6.14.4"
 	}
 }
