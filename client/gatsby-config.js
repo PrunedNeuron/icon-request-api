@@ -62,21 +62,6 @@ module.exports = {
     },
     `react-process-string`,
     `react-linkify`,
-    `styled-icons`,
-    `firebase-admin`,
-    {
-      resolve: 'gatsby-plugin-firebase',
-      options: {
-        credentials: {
-          apiKey: 'AIzaSyBzBURUJcOoBG44zPZw_rA8Q3chVD4mh1I',
-          authDomain: 'amphetamine-3675c.firebaseapp.com',
-          databaseURL: 'https://amphetamine-3675c.firebaseio.com',
-          projectId: 'amphetamine-3675c',
-          storageBucket: 'amphetamine-3675c.appspot.com',
-          messagingSenderId: '97337039515',
-          appId: '1:97337039515:web:bde7108af37782adeb043e'
-        }
-      }
-    }
+    `styled-icons`
   ]
 };
