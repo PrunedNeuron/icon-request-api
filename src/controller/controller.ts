@@ -4,7 +4,6 @@ import * as HttpStatusCodes from "http-status-codes";
 import { Request, Response } from "express";
 
 import IconRequest from "../model/icon.request.model";
-import path from "path";
 import { pool } from "../database/database";
 
 export class Controller {
@@ -12,10 +11,23 @@ export class Controller {
 		response.status(200).send(path.join(__dirname, "../client/public"));
 	} */
 
+	static async authenticate(apiKey: string): Promise<boolean> {
+	
+		console.log("apiKey = " + apiKey);
+		const apiKeyQueryResult = await pool.query(
+			"SELECT * FROM api_keys WHERE api_key = $1",
+			[apiKey]
+		);
+		console.log("HELP" + apiKeyQueryResult.rows[0])
+		if (apiKeyQueryResult.rows[0]) return true;
+	
+		return false;
+	}
+
 	notFound(request: Request, response: Response) {
 		response.status(404).send({
 			message:
-				"HTTP request received. However, this is not a URL the API uses. Try /amphetamine/api/v1/ instead"
+				"HTTP request received. However, this is not a valid URL for this api. Try /amphetamine/api/v1/ instead"
 		});
 	}
 
@@ -36,67 +48,87 @@ export class Controller {
 		});
 	}
 
-	addIconRequests(request: Request, response: Response) {
+	async addIconRequests(request: Request, response: Response) {
 		console.log("Entered addIconRequests().");
 		try {
-			console.log("Entered try-catch.");
-			const iconRequests: IconRequest[] = request.body["icons"];
+			if (! await Controller.authenticate(request.get("X-API-KEY"))) {
+				response.status(HttpStatusCodes.UNAUTHORIZED).json({
+					status: "FAILURE",
+					message: "Failed to authenticate api key!"
+				});
+			} else {
+				console.log("Entered try-catch.");
+				const iconRequests: IconRequest[] = request.body["icons"];
 
-			console.log("Icon requests assigned to variable.");
-			iconRequests.forEach((iconRequest) => {
-				console.log("Entered loop.");
-				// Add requests to the database
-				console.log("About to query the database.");
+				console.log("Icon requests assigned to variable.");
+
+				iconRequests.forEach((iconRequest) => {
+					console.log("Entered loop.");
+					// Add requests to the database
+					console.log("About to query the database.");
+					console.log(
+						"IconRequest = " +
+							iconRequest.name +
+							"\n" +
+							iconRequest.component +
+							"\n" +
+							iconRequest.url +
+							"\n"
+					);
+					const queryResult = pool.query(
+						"INSERT INTO icon_requests (name, component, url) VALUES ($1, $2, $3) RETURNING *",
+						[
+							iconRequest.name,
+							iconRequest.component,
+							iconRequest.url
+						]
+					);
+					console.log("Queried the database.");
+					console.log("Completed postgres query await");
+					console.log(queryResult);
+				});
+
+				console.log("Exited loop.");
+				response.status(HttpStatusCodes.OK).json({
+					status: "SUCCESS",
+					message: `Added ${iconRequests.length} icon requests.`
+				});
+
 				console.log(
-					"IconRequest = " +
-						iconRequest.name +
-						"\n" +
-						iconRequest.component +
-						"\n" +
-						iconRequest.url +
-						"\n"
+					`"Response status = ${response.statusCode}. BTW, iconRequests.length = ${iconRequests.length}"`
 				);
-				const queryResult = pool.query(
-					"INSERT INTO icon_requests (name, component, url) VALUES ($1, $2, $3) RETURNING *",
-					[iconRequest.name, iconRequest.component, iconRequest.url]
-				);
-				console.log("Queried the database.");
-				console.log("Completed postgres query await");
-				console.log(queryResult);
-			});
-			console.log("Exited loop.");
-			response.status(HttpStatusCodes.OK).json({
-				status: "SUCCESS",
-				message: `Added ${iconRequests.length} icon requests.`
-			});
-
-			console.log(
-				`"Response status = ${response.statusCode}. BTW, iconRequests.length = ${iconRequests.length}"`
-			);
-			console.log("DONE.");
+				console.log("DONE.");
+			}
 		} catch (error) {
 			console.error(error.message);
 		}
 	}
 	async addIconRequest(request: Request, response: Response) {
 		try {
-			const body = JSON.parse(request.body);
-			console.log(body);
-			const iconRequest: IconRequest = new IconRequest(
-				body["name"],
-				body["component"],
-				body["url"]
-			);
+			if (! await Controller.authenticate(request.get("X-API-KEY"))) {
+				response.json({
+					status: "FAILURE",
+					message: "Failed to authenticate api key!"
+				});
+			} else {
+				const body = JSON.parse(request.body);
+				console.log(body);
+				const iconRequest: IconRequest = new IconRequest(
+					body["name"],
+					body["component"],
+					body["url"]
+				);
 
-			const queryResult = await pool.query(
-				"INSERT INTO icon_requests (name, component, url) VALUES ($1, $2, $3) RETURNING *",
-				[iconRequest.name, iconRequest.component, iconRequest.url]
-			);
-			response.json({
-				message: "Icon request successfully added.",
-				icon: queryResult.rows[0]
-			});
-			// return queryResult;
+				const queryResult = await pool.query(
+					"INSERT INTO icon_requests (name, component, url) VALUES ($1, $2, $3) RETURNING *",
+					[iconRequest.name, iconRequest.component, iconRequest.url]
+				);
+				response.json({
+					message: "Icon request successfully added.",
+					icon: queryResult.rows[0]
+				});
+				// return queryResult;
+			}
 		} catch (error) {
 			console.error(error.message);
 			response.send(error.message);
@@ -141,17 +173,24 @@ export class Controller {
 
 	async deleteIconRequestById(request: Request, response: Response) {
 		try {
-			const { id } = request.params;
-			const iconRequest = this.findIconRequestById(id);
-			const queryResult = await pool.query(
-				"DELETE FROM icon_requests WHERE id = $1",
-				[id]
-			);
-			console.log(queryResult.rows);
-			response.json({
-				message: "success",
-				deleted_request: { iconRequest }
-			});
+			if (! await Controller.authenticate(request.get("X-API-KEY"))) {
+				response.json({
+					status: "FAILURE",
+					message: "Failed to authenticate api key!"
+				});
+			} else {
+				const { id } = request.params;
+				const iconRequest = this.findIconRequestById(id);
+				const queryResult = await pool.query(
+					"DELETE FROM icon_requests WHERE id = $1",
+					[id]
+				);
+				console.log(queryResult.rows);
+				response.json({
+					message: "success",
+					deleted_request: { iconRequest }
+				});
+			}
 		} catch (error) {
 			console.error(error.message);
 		}
@@ -159,17 +198,24 @@ export class Controller {
 
 	async deleteIconRequestByComponent(request: Request, response: Response) {
 		try {
-			const { component } = request.params;
-			const iconRequest = this.findIconRequestByComponent(component);
-			const queryResult = await pool.query(
-				"DELETE FROM icon_requests WHERE component = $1",
-				[component]
-			);
-			response.json({
-				message: "success",
-				deleted_request: { iconRequest }
-			});
-			console.log(queryResult.rows);
+			if (! await Controller.authenticate(request.get("X-API-KEY"))) {
+				response.json({
+					status: "FAILURE",
+					message: "Failed to authenticate api key!"
+				});
+			} else {
+				const { component } = request.params;
+				const iconRequest = this.findIconRequestByComponent(component);
+				const queryResult = await pool.query(
+					"DELETE FROM icon_requests WHERE component = $1",
+					[component]
+				);
+				response.json({
+					message: "success",
+					deleted_request: { iconRequest }
+				});
+				console.log(queryResult.rows);
+			}
 		} catch (error) {
 			console.error(error.message);
 		}

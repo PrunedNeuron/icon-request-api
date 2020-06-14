@@ -5,7 +5,7 @@ const preferDefault = m => m && m.default || m
 
 
 exports.components = {
-  "component---cache-caches-gatsby-plugin-offline-app-shell-js": hot(preferDefault(require("/home/ayush/projects/web/ayushm/main/website/client/.cache/caches/gatsby-plugin-offline/app-shell.js"))),
+  "component---cache-dev-404-page-js": hot(preferDefault(require("/home/ayush/projects/web/ayushm/main/website/client/.cache/dev-404-page.js"))),
   "component---src-pages-404-tsx": hot(preferDefault(require("/home/ayush/projects/web/ayushm/main/website/client/src/pages/404.tsx"))),
   "component---src-pages-blog-tsx": hot(preferDefault(require("/home/ayush/projects/web/ayushm/main/website/client/src/pages/blog.tsx"))),
   "component---src-pages-contact-tsx": hot(preferDefault(require("/home/ayush/projects/web/ayushm/main/website/client/src/pages/contact.tsx"))),

@@ -1,6 +1,11 @@
 CREATE TABLE IF NOT EXISTS icon_requests(
 	id			SERIAL PRIMARY KEY,
-	name		text NOT NULL,
-	component	text NOT NULL,
-	url			text NOT NULL
+	name		TEXT NOT NULL,
+	component	TEXT NOT NULL,
+	url			TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS api_keys(
+	id			SERIAL PRIMARY KEY,
+	api_key	TEXT NOT NULL
 );

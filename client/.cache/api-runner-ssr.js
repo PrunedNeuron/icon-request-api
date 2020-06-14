@@ -3,7 +3,7 @@ var plugins = [{
       options: {"plugins":[]},
     },{
       plugin: require('/home/ayush/projects/web/ayushm/main/website/client/node_modules/gatsby-plugin-manifest/gatsby-ssr'),
-      options: {"plugins":[],"name":"gatsby-personal-website-starter","short_name":"starter","start_url":"/","background_color":"#ed64a6","theme_color":"#ed64a6","display":"minimal-ui","icon":"src/assets/images/gatsby-icon.png","cache_busting_mode":"query","include_favicon":true,"legacy":true,"theme_color_in_head":true,"cacheDigest":"edf3d310d67f8284a562bc3a58c3e761"},
+      options: {"plugins":[],"name":"gatsby-personal-website-starter","short_name":"starter","start_url":"/","background_color":"#ed64a6","theme_color":"#ed64a6","display":"minimal-ui","icon":"src/assets/images/favicon.png","cache_busting_mode":"query","include_favicon":true,"legacy":true,"theme_color_in_head":true,"cacheDigest":"e1f373bf28d696e9d3fe09af49e0c8f7"},
     },{
       plugin: require('/home/ayush/projects/web/ayushm/main/website/client/node_modules/gatsby-plugin-offline/gatsby-ssr'),
       options: {"plugins":[]},
