@@ -15,27 +15,6 @@ console.log("Connection URI = " + connectionURI);
 
 console.log("isProduction = " + isProduction);
 
-/* export const pool: Pool = new Pool({
-	user: DB_USER,
-	password: DB_PASS,
-	host: DB_HOST,
-	port: parseInt(DB_PORT),
-	database: DB_DATABASE
-}); */
-
-/* export const pool = new Pool(
-	{
-		connectionString: isProduction
-			? process.env.DATABASE_URL
-			: connectionURI,
-		ssl: { 
-			rejectUnauthorized: false 
-		}
-	}
-	//isProduction
-);
- */
-
 export const pool = new Pool({
 	connectionString: process.env.DATABASE_URL || connectionURI,
 	ssl: process.env.DATABASE_URL ? true : false

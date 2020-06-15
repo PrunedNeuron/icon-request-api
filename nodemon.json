@@ -1,7 +1,16 @@
 {
 	"restartable": "rs",
 	"ext": "ts,js,json",
-	"ignore": [".git", "node_modules/**/node_modules", "*.test.ts", "dist", ".vscode", "yarn.lock"],
+	"ignore": [
+		".git",
+		"node_modules/**/node_modules",
+		"*.test.ts",
+		"dist",
+		"client/node_modules",
+		"client/public",
+		".vscode",
+		"yarn.lock"
+	],
 	"watch": ["."],
 	"delay": "2",
 	"verbose": true,

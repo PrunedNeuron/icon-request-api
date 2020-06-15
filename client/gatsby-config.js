@@ -1,8 +1,8 @@
 module.exports = {
   siteMetadata: {
-    title: `Ayush Mishra`,
-    description: `Graphic Designer & Developer`,
-    author: `Ayush Mishra`
+    title: `Gatsby.JS`,
+    description: `Gatsby Markdown Personal Website Starter, using Typescript, Styled Components, Tailwindcss and Framer Motion.`,
+    author: `Saimir Kapaj`
   },
   plugins: [
     `gatsby-plugin-typescript`,
@@ -43,8 +43,8 @@ module.exports = {
         name: `gatsby-personal-website-starter`,
         short_name: `starter`,
         start_url: `/`,
-        background_color: `#ed64a6`,
-        theme_color: `#ed64a6`,
+        background_color: `#81e6d9`,
+        theme_color: `#81e6d9`,
         display: `minimal-ui`,
         icon: `src/assets/images/favicon.png`
       }
@@ -59,9 +59,6 @@ module.exports = {
         tailwind: true,
         purgeOnly: [`src/assets/styles/global.css`]
       }
-    },
-    `react-process-string`,
-    `react-linkify`,
-    `styled-icons`
+    }
   ]
 };

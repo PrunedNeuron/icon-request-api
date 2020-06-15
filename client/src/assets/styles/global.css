@@ -4,33 +4,12 @@
 /* purgecss end ignore */
 
 @import 'tailwindcss/utilities';
-
-/* @import url('https://fonts.googleapis.com/css2?family=Merriweather');
-@import url('https://fonts.googleapis.com/css2?family=PT+Serif');
-@import url('https://fonts.googleapis.com/css2?family=Crimson+Text');
-@import url('https://fonts.googleapis.com/css2?family=Vollkorn');
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code');
 @import url('https://fonts.googleapis.com/css2?family=Inconsolata');
-@import url('https://fonts.googleapis.com/css2?family=Alegreya');
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display');
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif'); */
-
-/* @import url('https://fonts.googleapis.com/css2?family=Fira+Code'); */
-@import url('https://fonts.googleapis.com/css2?family=Inconsolata');
-@import url('https://fonts.googleapis.com/css2?family=Alegreya');
-/* @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif'); */
 
 html {
   font-family: 'Inconsolata', monospace;
 }
 
-a:active,
-a:focus {
-  outline: 0;
-  border: none;
-  -moz-outline-style: none;
-}
-
-.homeText {
-    font-size: large;
+p {
+  font-size: small;
 }

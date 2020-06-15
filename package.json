@@ -12,7 +12,8 @@
 		"develop": "concurrently 'yarn build' 'nodemon'",
 		"serve": "nodemon",
 		"start": "node dist/server.js",
-		"post": "cd client && rm -rf public .cache && yarn install && npx gatsby build && cd .. && yarn build",
+		"pre": "cd client && rm -rf public .cache && yarn install && npx gatsby build && cd ..",
+		"deploy": "yarn build && yarn pre && yarn develop",
 		"heroku-postbuild": "cd client && rm -rf public .cache && yarn install && npx gatsby build && cd .. && yarn build"
 	},
 	"devDependencies": {
