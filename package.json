@@ -13,7 +13,7 @@
 		"develop": "concurrently 'yarn clean && yarn build' 'yarn serve'",
 		"start": "node dist/server.js",
 		"pre": "cd client && rm -rf public .cache && yarn install && npx gatsby build && cd ..",
-		"deploy": "yarn build && yarn pre && yarn develop",
+		"deploy": "yarn build && yarn pre && pm2 dist/server.js",
 		"heroku-postbuild": "cd client && rm -rf public .cache && yarn install && npx gatsby build && cd .. && yarn build"
 	},
 	"devDependencies": {
