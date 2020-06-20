@@ -1,4 +1,4 @@
-class IconRequest {
+class IconRequestRequest {
 	public name: string;
 	public component: string;
 	public url: string;
@@ -10,4 +10,4 @@ class IconRequest {
 	}
 }
 
-export default IconRequest;
+export default IconRequestRequest;

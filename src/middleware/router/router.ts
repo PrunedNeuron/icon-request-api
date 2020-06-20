@@ -10,9 +10,24 @@ export class Router {
 		this.controller = new Controller();
 	}
 	public routes(app: express.Application): void {
-		console.log("Routing now...");
+		console.log("Routing...");
 
-		// https://icon-requests-api.herokuapp.com/amphetamine/api/v1
+		// public
+		app.route("/amphetamine/api/v1/requests")
+			.get(this.controller.getDistinctIconRequests);
+		
+		app.route("/amphetamine/api/v1/requests/count")
+			.get(this.controller.getIconRequestsCount)
+		
+		//private
+		app.route("/amphetamine/api/v1/requests/all")
+			.get(this.controller.getSortedIconRequestsWithId)
+		
+		app.route("/amphetamine/api/v1/requests/update/id/:id/status/:status")
+			.put(this.controller.updateRequestStatusById);
+		
+		app.route("/amphetamine/api/v1/requests/update/component/:component/status/:status")
+			.put(this.controller.updateRequestStatusByComponent);
 
 		app.route("/amphetamine/api/v1")
 			.get(this.controller.getIconRequests)
