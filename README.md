@@ -21,13 +21,10 @@
 - [License](#license)
 - [Find me elsewhere](#find-me-elsewhere)
 
-
-
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
 This repository hosts the source code of my personal website with it's accompanying api for one of my projects.
-
 
 ### Built With
 
@@ -37,7 +34,6 @@ This repository hosts the source code of my personal website with it's accompany
 * [ExpressJS](https://expressjs.com/)
 * [GatsbyJS](https://www.gatsbyjs.org/)
 * [PostgreSQL](https://www.postgresql.org/)
-
 
 <!-- CONTRIBUTING -->
 ## Contributing
@@ -53,19 +49,14 @@ Contributions are what make the open source community such an amazing place to b
   `git push origin feature/AmazingFeature`
 5. <a href="https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request">Open a Pull Request</a>
 
-
-
 <!-- LICENSE -->
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
-
-
 <!-- CONTACT -->
 
 ## Find me elsewhere
-
 :email: - [am@ayushm.dev](mailto:am@ayushm.dev)<br>
 :basketball: - [Dribbble](https://dribbble.com/ayush)<br>
 :globe_with_meridians: - [Website](https://ayushm.dev)
