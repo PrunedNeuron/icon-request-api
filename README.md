@@ -6,9 +6,12 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
+<!-- [![Semaphore](https://ayushmishra.semaphoreci.com/badges/icon-request-api.svg)](https://ayushmishra.semaphoreci.com/badges/icon-request-api.svg) -->
 
 [![MIT License][license-shield]][license-url]
 [![Build Status](https://dev.azure.com/hsuay/hsuay/_apis/build/status/PrunedNeuron.icon-request-api?branchName=master)](https://dev.azure.com/hsuay/hsuay/_build/latest?definitionId=1&branchName=master)
+[![Website](https://img.shields.io/website?down_color=lightgrey&down_message=offline&style=flat-square&up_color=green&up_message=online&url=https%3A%2F%2Fayushm.dev)](https://ayushm.dev)
+[![GitHub top language](https://img.shields.io/github/languages/top/PrunedNeuron/icon-request-api?style=flat-square)]()
 
 
 <!-- TABLE OF CONTENTS -->
