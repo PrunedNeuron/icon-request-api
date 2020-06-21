@@ -8,7 +8,7 @@
 -->
 
 [![MIT License][license-shield]][license-url]
-[![Build Status](azure-build-status)](azure-build-latest)
+[![Build Status](https://dev.azure.com/hsuay/hsuay/_apis/build/status/PrunedNeuron.icon-request-api?branchName=master)](https://dev.azure.com/hsuay/hsuay/_build/latest?definitionId=1&branchName=master)
 
 
 <!-- TABLE OF CONTENTS -->
