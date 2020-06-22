@@ -8,10 +8,10 @@
 -->
 
 
+<!-- [![Commit activity][commit-activity]][commit-activity] -->
 <!-- [![Semaphore](https://ayushmishra.semaphoreci.com/badges/icon-request-api.svg)](https://ayushmishra.semaphoreci.com/badges/icon-request-api.svg) -->
 [![Build Status][azure-build-status]][azure-build-url]
 [![Codefactor][codefactor]][codefactor]
-[![Commit activity][commit-activity]][commit-activity]
 [![GitHub top language][top-language]][top-language]
 [![MIT License][license-shield]][license-url]
 [![Website][website]][website-url]
