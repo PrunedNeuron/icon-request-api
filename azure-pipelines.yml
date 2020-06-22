@@ -16,7 +16,6 @@ steps:
   displayName: 'Install Node.js'
 
 - script: |
-    npm install
-    npm run pre
-    npm run build
-  displayName: 'npm install, pre and build'
+    yarn install
+    yarn prepare
+  displayName: 'yarn install and prepare'
