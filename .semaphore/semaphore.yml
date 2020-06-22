@@ -12,6 +12,6 @@ blocks:
           commands:
             - checkout
             - sem-version node 12.18.0
-            - yarn install
-            - yarn pre
-            - yarn build
+            - npm install
+            - npm run pre
+            - npm run build
