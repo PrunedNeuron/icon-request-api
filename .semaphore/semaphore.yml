@@ -13,4 +13,5 @@ blocks:
             - checkout
             - sem-version node 12.18.0
             - yarn install
-            - yarn prepare
+            - yarn pre
+            - yarn build
