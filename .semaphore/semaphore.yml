@@ -13,5 +13,9 @@ blocks:
             - checkout
             - sem-version node 12.18.0
             - npm install
-            - npm run pre
+            - cd client
+            - rm -rf .cache public
+            - npm install
+            - npx gatsby build
+            - cd ..
             - npm run build

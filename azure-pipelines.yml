@@ -16,7 +16,11 @@ steps:
   displayName: 'Install Node.js'
 
 - script: |
-    npm i
-    npm run pre
+    npm install
+    cd client
+    rm -rf public .cache
+    npm install
+    npx gatsby build
+    cd ..
     npm run build
-  displayName: 'yarn install and prepare'
+  displayName: 'install and prepare'

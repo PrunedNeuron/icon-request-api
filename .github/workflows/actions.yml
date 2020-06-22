@@ -18,7 +18,18 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install
-    - run: npm run pre
+    - run: cd client
+    - run: rm -rf public .cache
+    - run: npm install
+    - run: npx gatsby build
+    - run: cd ..
     - run: npm run build
       env:
         CI: true
+
+
+#     "build": "yarn clean && tsc",
+# 		"serve": "nodemon",
+# 		"develop": "concurrently 'yarn clean && yarn build' 'yarn serve'",
+# 		"start": "node dist/server.js",
+# 		"pre": "cd client && rm -rf public .cache && yarn install && npx gatsby build && cd ..",
