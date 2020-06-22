@@ -6,12 +6,16 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
-<!-- [![Semaphore](https://ayushmishra.semaphoreci.com/badges/icon-request-api.svg)](https://ayushmishra.semaphoreci.com/badges/icon-request-api.svg) -->
 
+
+<!-- [![Semaphore](https://ayushmishra.semaphoreci.com/badges/icon-request-api.svg)](https://ayushmishra.semaphoreci.com/badges/icon-request-api.svg) -->
+[![Build Status][azure-build-status]][azure-build-url]
+[![Codefactor][codefactor]][codefactor]
+[![Commit activity][commit-activity]][commit-activity]
+[![GitHub top language][top-language]][top-language]
 [![MIT License][license-shield]][license-url]
-[![Build Status](https://dev.azure.com/hsuay/hsuay/_apis/build/status/PrunedNeuron.icon-request-api?branchName=master)](https://dev.azure.com/hsuay/hsuay/_build/latest?definitionId=1&branchName=master)
-[![Website](https://img.shields.io/website?down_color=lightgrey&down_message=offline&style=flat-square&up_color=green&up_message=online&url=https%3A%2F%2Fayushm.dev)](https://ayushm.dev)
-[![GitHub top language](https://img.shields.io/github/languages/top/PrunedNeuron/icon-request-api?style=flat-square)]()
+[![Website][website]][website-url]
+
 
 
 <!-- TABLE OF CONTENTS -->
@@ -19,7 +23,7 @@
 
 - [Table of Contents](#table-of-contents)
 - [About The Project](#about-the-project)
-	- [Built With](#built-with)
+  - [Built With](#built-with)
 - [Contributing](#contributing)
 - [License](#license)
 - [Find me elsewhere](#find-me-elsewhere)
@@ -27,7 +31,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-This repository hosts the source code of my personal website with it's accompanying api for one of my projects.
+This repository hosts the source code of my personal website.
 
 ### Built With
 
@@ -67,7 +71,12 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [azure-build-latest]: https://dev.azure.com/hsuay/hsuay/_build/latest?definitionId=1&branchName=master
-[azure-build-status]: https://dev.azure.com/hsuay/hsuay/_apis/build/status/PrunedNeuron.icon-request-api?branchName=master
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=flat-square
+[azure-build-url]: https://dev.azure.com/hsuay/hsuay/_build/latest?definitionId=1&branchName=master
+[azure-build-status]: https://img.shields.io/azure-devops/build/hsuay/bebe3cfa-3517-49e3-b2ed-b1f919a18a91/1?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
 [license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
-[
+[codefactor]: https://img.shields.io/codefactor/grade/github/prunedneuron/icon-request-api?style=for-the-badge
+[commit-activity]: https://img.shields.io/github/commit-activity/m/PrunedNeuron/icon-request-api?style=for-the-badge
+[website]: https://img.shields.io/website?down_color=lightgrey&down_message=offline&style=for-the-badge&up_color=green&up_message=online&url=https%3A%2F%2Fayushm.dev
+[website-url]: https://ayushm.dev
+[top-language]: https://img.shields.io/github/languages/top/PrunedNeuron/icon-request-api?style=for-the-badge
