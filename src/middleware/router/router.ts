@@ -62,7 +62,7 @@ export class Router {
 		app.route("/amp").get(
 			(request: express.Request, response: express.Response) => {
 				console.log();
-				response.sendFile("client/amphetamine/build/index.html", {
+				response.sendFile("client/amphetamine/main/index.html", {
 					root: path.resolve(__dirname + "/../../../")
 				});
 			}
