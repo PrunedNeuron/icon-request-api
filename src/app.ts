@@ -53,7 +53,7 @@ class App {
 		console.log(path.join(__dirname, "../client/public"));
 		this.app.use(express.static(path.join(__dirname, "../client/public")));
 		this.app.use(
-			express.static(path.join(__dirname, "../client/amphetamine/public"))
+			express.static(path.join(__dirname, "../client/amphetamine/main"))
 		);
 
 		if (isProduction) {
