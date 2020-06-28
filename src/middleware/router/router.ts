@@ -1,3 +1,4 @@
+import path from "path";
 import { Controller } from "./../../controller/controller";
 import express from "express";
 
@@ -13,21 +14,26 @@ export class Router {
 		console.log("Routing...");
 
 		// public
-		app.route("/amphetamine/api/v1/requests")
-			.get(this.controller.getDistinctIconRequests);
-		
-		app.route("/amphetamine/api/v1/requests/count")
-			.get(this.controller.getIconRequestsCount)
-		
+		app.route("/amphetamine/api/v1/requests").get(
+			this.controller.getDistinctIconRequests
+		);
+
+		app.route("/amphetamine/api/v1/requests/count").get(
+			this.controller.getIconRequestsCount
+		);
+
 		//private
-		app.route("/amphetamine/api/v1/requests/all")
-			.get(this.controller.getSortedIconRequestsWithId)
-		
-		app.route("/amphetamine/api/v1/requests/update/id/:id/status/:status")
-			.put(this.controller.updateRequestStatusById);
-		
-		app.route("/amphetamine/api/v1/requests/update/component/:component/status/:status")
-			.put(this.controller.updateRequestStatusByComponent);
+		app.route("/amphetamine/api/v1/requests/all").get(
+			this.controller.getSortedIconRequestsWithId
+		);
+
+		app.route(
+			"/amphetamine/api/v1/requests/update/id/:id/status/:status"
+		).put(this.controller.updateRequestStatusById);
+
+		app.route(
+			"/amphetamine/api/v1/requests/update/component/:component/status/:status"
+		).put(this.controller.updateRequestStatusByComponent);
 
 		app.route("/amphetamine/api/v1")
 			.get(this.controller.getIconRequests)
@@ -52,6 +58,15 @@ export class Router {
 			.put(this.controller.notFound)
 			.post(this.controller.notFound)
 			.delete(this.controller.notFound);
+
+		app.route("/amp").get(
+			(request: express.Request, response: express.Response) => {
+				console.log();
+				response.sendFile("client/amphetamine/build/index.html", {
+					root: path.resolve(__dirname + "/../../../")
+				});
+			}
+		);
 
 		// app.route("/").all(this.controller.homePage);
 

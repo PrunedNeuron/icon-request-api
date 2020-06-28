@@ -48,9 +48,5 @@
 		"http-status-codes": "^1.4.0",
 		"pg": "^8.2.1",
 		"pg-promise": "^10.5.6"
-	},
-	"engines": {
-		"node": "12.18.0",
-		"npm": "6.14.4"
 	}
 }
