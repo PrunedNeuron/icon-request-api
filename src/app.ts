@@ -52,7 +52,9 @@ class App {
 		this.app.use(limiter);
 		console.log(path.join(__dirname, "../client/public"));
 		this.app.use(express.static(path.join(__dirname, "../client/public")));
-		this.app.use(express.static(path.join(__dirname, "../client/amphetamine/build")));
+		this.app.use(
+			express.static(path.join(__dirname, "../client/amphetamine/public"))
+		);
 
 		if (isProduction) {
 			// Serve static content
