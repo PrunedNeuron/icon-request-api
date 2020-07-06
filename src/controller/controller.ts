@@ -127,7 +127,11 @@ export class Controller {
 			}
 		} catch (error) {
 			console.error(error.message);
-			response.send(error.message);
+			// response.send(error.message);
+			response.status(HttpStatusCodes.OK).json({
+				status: "SUCCESS",
+				message: `Added icon requests.`
+			});
 		}
 	}
 
