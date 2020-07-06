@@ -16,7 +16,7 @@ const origin = {
 
 const limiter = rateLimit({
 	windowMs: 1 * 60 * 1000, // 1 minute
-	max: isProduction ? 60 : 1000 // 60 Requests during production / 1000 during development
+	max: isProduction ? 500 : 1000 // 60 Requests during production / 1000 during development
 });
 
 // Rate limit specific endpoint:

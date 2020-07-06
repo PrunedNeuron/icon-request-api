@@ -63,7 +63,7 @@ export class Controller {
 
 				console.log("Icon requests assigned to variable.");
 
-				iconRequests.forEach((iconRequest) => {
+				iconRequests.forEach(async (iconRequest) => {
 					console.log("Entered loop.");
 					// Add requests to the database
 					console.log("About to query the database.");
@@ -76,17 +76,42 @@ export class Controller {
 							iconRequest.url +
 							"\n"
 					);
-					const queryResult = pool.query(
-						"INSERT INTO icon_requests (name, component, url) VALUES ($1, $2, $3) RETURNING *",
-						[
-							iconRequest.name,
-							iconRequest.component,
-							iconRequest.url
-						]
-					);
+
+					let queryResult;
+
+					const exists = async (comp) => {
+						const result = await pool.query(
+							"SELECT * FROM icon_requests WHERE component = $1",
+							[iconRequest.component]
+						);
+
+						console.log("ROWS LENGTH = " + result.rows.length);
+
+						// Exists in DB
+						if (result.rows.length > 0) return true;
+						else return false; // Does not exist in DB yet
+					};
+
+					if (await exists(iconRequest.component)) {
+						// Update
+						queryResult = await pool.query(
+							"UPDATE icon_requests SET requesters = requesters + 1 WHERE component = $1",
+							[iconRequest.component]
+						);
+					} else {
+						// Insert
+						queryResult = await pool.query(
+							"INSERT INTO icon_requests (name, component, url) VALUES ($1, $2, $3) RETURNING *",
+							[
+								iconRequest.name,
+								iconRequest.component,
+								iconRequest.url
+							]
+						);
+					}
 					console.log("Queried the database.");
 					console.log("Completed postgres query await");
-					console.log(queryResult);
+					// console.log(queryResult);
 				});
 
 				console.log("Exited loop.");
@@ -105,6 +130,24 @@ export class Controller {
 			response.send(error.message);
 		}
 	}
+
+	// Returns true if it exists ( UPDATE requesters++ ), false if it does not ( INSERT  )
+	async iconRequestExists(component: string) {
+		try {
+			const queryResult = await pool.query(
+				"SELECT * FROM icon_requests WHERE component = $1",
+				[component]
+			);
+
+			console.log("Query Result length = " + queryResult.rows.length);
+			// Exists in DB
+			if (queryResult.rows.length > 0) return true;
+			else return false; // Does not exist in DB yet
+		} catch (error) {
+			console.log(error.message);
+		}
+	}
+
 	async addIconRequest(request: Request, response: Response) {
 		try {
 			if (!(await Controller.authenticate(request.get("X-API-KEY")))) {
@@ -138,11 +181,9 @@ export class Controller {
 
 	async getIconRequestsCount(request: Request, response: Response) {
 		try {
-			const queryResult = await pool.query(
-				"SELECT * FROM icon_requests"
-			);
+			const queryResult = await pool.query("SELECT * FROM icon_requests");
 			response.json({
-				"total": queryResult.rowCount
+				total: queryResult.rowCount
 			});
 		} catch (error) {
 			console.error(error.message);
