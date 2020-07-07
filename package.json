@@ -7,7 +7,10 @@
 		"dev": "nodemon",
 		"build": "tsc",
 		"watch": "tsc --watch",
-		"start": "yarn build && node ./build/src/index.js"
+		"start": "yarn build && node ./build/src/index.js",
+		"build:client": "cd client && yarn install --production=false && yarn prod && cd ..",
+		"build:server": "yarn install --production=false && tsc",
+		"deploy": "yarn build:client && yarn build:server && pm2 start ./build/src/index.js"
 	},
 	"devDependencies": {
 		"@types/koa-compress": "^4.0.0",
