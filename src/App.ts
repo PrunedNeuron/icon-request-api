@@ -1,25 +1,24 @@
-import express from "express";
-import helmet from "helmet";
-import cors from "cors";
+import Koa from "koa";
+
+import bodyParser from "koa-bodyparser";
+import helmet from "koa-helmet";
+import cors from "@koa/cors";
+import compression from "koa-compress";
 import { Router } from "./routes/Router";
-import compression from "compression";
 
 export class App {
-	public app: express.Application;
-	public router: Router;
+	app: Koa;
+	router: Router;
 
 	constructor() {
-		this.app = express();
+		this.app = new Koa();
 		this.attachMiddleware();
-
-		// This statement will set both private and public routes for "app"
 		this.router = new Router(this.app);
 	}
 
 	private attachMiddleware(): void {
 		this.app.use(compression());
-		this.app.use(express.json());
-		this.app.use(express.urlencoded({ extended: true }));
+		this.app.use(bodyParser());
 		this.app.use(helmet());
 		this.app.use(cors());
 	}

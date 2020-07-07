@@ -5,6 +5,5 @@
 	"username": "ayush",
 	"password": "ayush",
 	"database": "amphetamine",
-	"entities": ["build/src/models/*.js"],
-	"logging": true
+	"entities": ["build/src/models/*.js"]
 }

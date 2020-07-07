@@ -1,7 +1,7 @@
-import { Request } from "express";
+import { Context } from "koa";
 import { Authenticator } from "../../middleware/authentication/Authenticator";
 
-const authenticate = async (request: Request) =>
-	(await new Authenticator().authenticate(request.get("X-API-KEY")));
+const authenticate = async (ctx: Context) =>
+	await new Authenticator().authenticate(ctx.get("X-API-KEY"));
 
 export default authenticate;

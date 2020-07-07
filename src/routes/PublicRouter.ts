@@ -1,17 +1,25 @@
-import express from "express";
+import Koa from "koa";
+import Router from "@koa/router";
 import { PublicController } from "../controllers/PublicController";
 
 export class PublicRouter {
-	router: express.Router;
+	router: Router;
 	controller: PublicController;
 
-	constructor(app: express.Application) {
-		this.router = express.Router();
+	constructor(app: Koa) {
+		console.log("In public router");
+		this.router = new Router();
 		this.controller = new PublicController();
-		this.setPublicRoutes(app);
+		this.setPublicRoutes();
+		this.attachRoutes(app);
 	}
 
-	setPublicRoutes(app: express.Application) {
+	public attachRoutes(app: Koa) {
+		app.use(this.router.routes());
+		app.use(this.router.allowedMethods());
+	}
+
+	async setPublicRoutes() {
 		// These routes are accessible by everyone.
 
 		console.log("Setting public routes...");
@@ -21,34 +29,13 @@ export class PublicRouter {
 		 * Returns a list of distinct icon requests
 		 * sorted by popularity in descending order.
 		 */
-		app.route("/api/iconrequests").get(
-			this.controller.getAllDistinctIconRequests
-		);
-
-		/*
-		 * @GET(/api/iconrequests/:offset/:limit)
-		 * Returns icon requests from position =
-		 * offset to offset + limit from the list
-		 * returned by /api/iconrequests
-		 */
-		app.route("/api/iconrequests/:offset/:limit").get(
-			this.controller.getSomeIconRequests
-		);
+		this.router.get("/api/iconrequests", this.controller.getIconRequests);
 
 		/*
 		 * @GET(/api/iconrequests)
 		 * Returns a list of distinct icon requests
 		 * sorted by popularity in descending order.
 		 */
-		app.route("/api/iconrequests/count").get(
-			this.controller.getDistinctIconRequestsCount
-		);
-
-		/*
-		 * @GET(/api/iconrequests/auth)
-		 *	Checks if passsword is valid
-		 */
-		app.route("/api/iconrequests/auth")
-			.post(this.controller.validateHashedPassword)
+		this.router.get("/api/iconrequests/count", this.controller.getCount);
 	}
 }
