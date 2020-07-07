@@ -118,3 +118,6 @@ dist
 # Build directories
 build/
 client/build
+
+yarn.lock
+client/yarn.lock
