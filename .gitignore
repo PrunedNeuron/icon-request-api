@@ -115,9 +115,6 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-# Project specific
+# Build directories
 build/
-dist/
-cache/
-public/
-.cache/
+client/build
