@@ -108,3 +108,6 @@ yarn.lock
 build/
 dist/
 /node_modules/
+.vscode/
+/.vscode/
+.vscode
