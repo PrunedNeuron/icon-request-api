@@ -16,6 +16,6 @@ export const SecondaryTheme = createMuiTheme({
 	}
 });
 
-export const BASE_URL = "http://localhost:3000/";
-export const PUBLIC_URL = "http://localhost:3000/iconrequests";
+export const BASE_URL = "https://ayushm.dev/";
+export const PUBLIC_URL = "https://ayushm.dev/api/iconrequests";
 export const API_KEY = "so9ZcJc1jm";
