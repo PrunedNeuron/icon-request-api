@@ -1,6 +1,7 @@
 import Koa from "koa";
 import Router from "@koa/router";
 import { PublicController } from "../controllers/PublicController";
+import { Context } from "koa";
 
 export class PublicRouter {
 	router: Router;
@@ -37,5 +38,9 @@ export class PublicRouter {
 		 * sorted by popularity in descending order.
 		 */
 		this.router.get("/api/iconrequests/count", this.controller.getCount);
+
+		this.router.get("/", function (ctx: Context) {
+			ctx.body = "Routing from /.";
+		});
 	}
 }

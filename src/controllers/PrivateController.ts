@@ -48,7 +48,9 @@ export class PrivateController {
 					message: "Failed to authenticate api key!"
 				};
 			} else {
+
 				const iconRequests = ctx.request.body["icons"];
+
 				iconRequests.forEach(async (iconRequest: IconRequest) => {
 					const selection = await getConnection()
 						.createQueryBuilder()
