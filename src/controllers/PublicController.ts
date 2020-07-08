@@ -13,6 +13,8 @@ export class PublicController {
 				.createQueryBuilder()
 				.select("name, component, url")
 				.from(IconRequest, "ir")
+				.where("status = :status", { status: "pending" })
+				.orderBy("requesters", "DESC")
 				.offset(ctx.params.offset)
 				.limit(ctx.params.limit)
 				.execute();
@@ -39,6 +41,30 @@ export class PublicController {
 
 			ctx.status = HttpStatusCodes.OK;
 			ctx.body = iconRequests;
+		} catch (error) {
+			ctx.status = HttpStatusCodes.INTERNAL_SERVER_ERROR;
+			ctx.body = {
+				status: "FAILURE",
+				message: error.message
+			};
+			console.log(error.message);
+		}
+	}
+
+	public async getPendingCount(ctx: Context): Promise<void> {
+		try {
+			const count = await getConnection()
+				.createQueryBuilder()
+				.select("COUNT(*)", "count")
+				.from(IconRequest, "ir")
+				.where("status = :status", { status: "pending" })
+				.execute();
+
+			ctx.status = HttpStatusCodes.OK;
+			ctx.body = {
+				status: "SUCCESS",
+				count: count[0].count
+			};
 		} catch (error) {
 			ctx.status = HttpStatusCodes.INTERNAL_SERVER_ERROR;
 			ctx.body = {

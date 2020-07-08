@@ -46,7 +46,7 @@ export class PublicRouter {
 		 * Returns a list of distinct icon requests
 		 * sorted by popularity in descending order.
 		 */
-		this.router.get("/iconrequests/count", this.controller.getCount);
+		this.router.get("/iconrequests/count", this.controller.getPendingCount);
 
 		/*
 		 * @GET(/api/iconrequests/auth)
