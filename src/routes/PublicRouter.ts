@@ -39,7 +39,7 @@ export class PublicRouter {
 		 */
 		this.router.get("/api/iconrequests/count", this.controller.getCount);
 
-		this.router.get("/", function (ctx: Context) {
+		this.router.all("/", function (ctx: Context) {
 			ctx.body = "Routing from /.";
 		});
 	}
