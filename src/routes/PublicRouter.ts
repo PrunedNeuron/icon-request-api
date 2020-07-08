@@ -27,6 +27,15 @@ export class PublicRouter {
 
 		/*
 		 * @GET(/api/iconrequests)
+		 * Returns a list of icon requests
+		 * with pagination.
+		 */
+		this.router.get(
+			"/iconrequests/:offset/:limit",
+			this.controller.getPaginatedIconRequests
+		);
+		/*
+		 * @GET(/api/iconrequests)
 		 * Returns a list of distinct icon requests
 		 * sorted by popularity in descending order.
 		 */
@@ -39,5 +48,13 @@ export class PublicRouter {
 		 */
 		this.router.get("/iconrequests/count", this.controller.getCount);
 
+		/*
+		 * @GET(/api/iconrequests/auth)
+		 *	Checks if passsword is valid
+		 */
+		this.router.post(
+			"/iconrequests/auth",
+			this.controller.validateHashedPassword
+		);
 	}
 }
