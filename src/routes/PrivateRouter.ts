@@ -34,8 +34,8 @@ export class PrivateRouter {
 		 */
 
 		this.router
-			.get("/api/requests", this.controller.getIconRequests)
-			.post("/api/requests", this.controller.addIconRequests);
+			.get("/requests", this.controller.getIconRequests)
+			.post("/requests", this.controller.addIconRequests);
 
 		/*
 		 * @PUT(/api/iconrequests)
@@ -45,7 +45,7 @@ export class PrivateRouter {
 		 * Returns the status and message associated with the outcome.
 		 */
 		this.router.put(
-			"/api/requests/update/component",
+			"/requests/update/component",
 			this.controller.updateIconRequestStatus
 		);
 
@@ -54,7 +54,7 @@ export class PrivateRouter {
 		 * Returns a list of distinct icon requests
 		 * sorted by popularity in descending order.
 		 */
-		this.router.get("/api/requests/count", this.controller.getCount);
+		this.router.get("/requests/count", this.controller.getCount);
 
 		/*
 		 * !!!DEPRECATED

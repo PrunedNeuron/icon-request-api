@@ -30,17 +30,14 @@ export class PublicRouter {
 		 * Returns a list of distinct icon requests
 		 * sorted by popularity in descending order.
 		 */
-		this.router.get("/api/iconrequests", this.controller.getIconRequests);
+		this.router.get("/iconrequests", this.controller.getIconRequests);
 
 		/*
 		 * @GET(/api/iconrequests)
 		 * Returns a list of distinct icon requests
 		 * sorted by popularity in descending order.
 		 */
-		this.router.get("/api/iconrequests/count", this.controller.getCount);
+		this.router.get("/iconrequests/count", this.controller.getCount);
 
-		this.router.all("/", function (ctx: Context) {
-			ctx.body = "Routing from /.";
-		});
 	}
 }
