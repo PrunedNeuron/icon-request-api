@@ -22,7 +22,7 @@ export class PrivateController {
 				// console.log(JSON.stringify(ctx));
 				const iconRequests = await getConnection()
 					.createQueryBuilder()
-					.select("name, component, url")
+					.select("id, name, component, url, requesters, status")
 					.from(IconRequest, "ir")
 					.where("status = :status", { status: "pending" })
 					.orderBy("requesters", "DESC")
