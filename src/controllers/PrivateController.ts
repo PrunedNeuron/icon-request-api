@@ -19,10 +19,15 @@ export class PrivateController {
 					message: "Failed to authenticate api key!"
 				};
 			} else {
+				// console.log(JSON.stringify(ctx));
 				const iconRequests = await getConnection()
 					.createQueryBuilder()
-					.select("name, component, url, requesters, status")
+					.select("name, component, url")
 					.from(IconRequest, "ir")
+					.where("status = :status", { status: "pending" })
+					.orderBy("requesters", "DESC")
+					.offset(ctx.params.offset)
+					.limit(ctx.params.limit)
 					.execute();
 
 				ctx.status = HttpStatusCodes.OK;
@@ -48,7 +53,6 @@ export class PrivateController {
 					message: "Failed to authenticate api key!"
 				};
 			} else {
-
 				const iconRequests = ctx.request.body["icons"];
 
 				iconRequests.forEach(async (iconRequest: IconRequest) => {
@@ -138,6 +142,7 @@ export class PrivateController {
 		}
 	}
 
+	// @GET: /api/requests/update/component
 	public async getCount(ctx: Context): Promise<void> {
 		try {
 			if (!authenticate(ctx)) {
@@ -151,12 +156,13 @@ export class PrivateController {
 					.createQueryBuilder()
 					.select("COUNT(*)", "count")
 					.from(IconRequest, "ir")
+					.where("status = :status", { status: "pending" })
 					.execute();
 
 				ctx.status = HttpStatusCodes.OK;
 				ctx.body = {
 					status: "SUCCESS",
-					count: count[0]
+					count: count[0].count
 				};
 			}
 		} catch (error) {

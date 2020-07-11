@@ -1,7 +1,7 @@
-import styled from "styled-components";
+import Box from "@material-ui/core/Box";
 import Pagination from "@material-ui/lab/Pagination";
 import { createMuiTheme } from "@material-ui/core/styles";
-import Box from "@material-ui/core/Box";
+import styled from "styled-components";
 
 const palette = {
 	primary: { main: "#3D5AFE" },
@@ -13,12 +13,12 @@ export default createMuiTheme({ palette, blueTheme });
 
 export const StyledPagination = styled(Pagination)`
 	&& {
-		margin: 1rem 2rem 1rem 1.5rem;
+		margin: 1rem 0rem 1rem 12rem;
 	}
 `;
 
 export const StyledBox = styled(Box)`
 	&& {
-		margin: 1rem 2rem 1rem 2rem;
+		margin: 1rem 36rem 1rem 2rem;
 	}
 `;

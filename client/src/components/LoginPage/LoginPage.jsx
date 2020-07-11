@@ -1,9 +1,10 @@
+import { Card, CardContent, Grid } from "@material-ui/core";
 import React, { Component } from "react";
+import { StyledLoginButton, StyledTextField } from "./Styles";
+
+import { BASE_URL } from "../Constants";
 import Dashboard from "../Dashboard/Dashboard";
 import axios from "axios";
-import { Grid, Card, CardContent } from "@material-ui/core";
-import { StyledLoginButton, StyledTextField } from "./Styles";
-import { PUBLIC_URL } from "../Constants";
 
 export default class LoginPage extends Component {
 	constructor() {
@@ -24,7 +25,7 @@ export default class LoginPage extends Component {
 		event.preventDefault();
 		const serverResponse = await axios({
 			method: "POST",
-			url: PUBLIC_URL + "/auth",
+			url: `${BASE_URL}/iconrequests/auth`,
 			data: {
 				username: this.state.username,
 				password: this.state.password

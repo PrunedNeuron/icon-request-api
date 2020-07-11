@@ -7,30 +7,7 @@ import bcrypt from "bcrypt";
 
 // Handles requests without header X-API-KEY
 export class PublicController {
-	public async getPaginatedIconRequests(ctx: Context): Promise<void> {
-		try {
-			const iconRequests = await getConnection()
-				.createQueryBuilder()
-				.select("name, component, url")
-				.from(IconRequest, "ir")
-				.where("status = :status", { status: "pending" })
-				.orderBy("requesters", "DESC")
-				.offset(ctx.params.offset)
-				.limit(ctx.params.limit)
-				.execute();
-
-			ctx.status = HttpStatusCodes.OK;
-			ctx.body = iconRequests;
-		} catch (error) {
-			ctx.status = HttpStatusCodes.INTERNAL_SERVER_ERROR;
-			ctx.body = {
-				status: "FAILURE",
-				message: error.message
-			};
-			console.log(error.message);
-		}
-	}
-
+	// GET: /api/iconrequests
 	public async getIconRequests(ctx: Context): Promise<void> {
 		try {
 			const iconRequests = await getConnection()
@@ -51,30 +28,7 @@ export class PublicController {
 		}
 	}
 
-	public async getPendingCount(ctx: Context): Promise<void> {
-		try {
-			const count = await getConnection()
-				.createQueryBuilder()
-				.select("COUNT(*)", "count")
-				.from(IconRequest, "ir")
-				.where("status = :status", { status: "pending" })
-				.execute();
-
-			ctx.status = HttpStatusCodes.OK;
-			ctx.body = {
-				status: "SUCCESS",
-				count: count[0].count
-			};
-		} catch (error) {
-			ctx.status = HttpStatusCodes.INTERNAL_SERVER_ERROR;
-			ctx.body = {
-				status: "FAILURE",
-				message: error.message
-			};
-			console.log(error.message);
-		}
-	}
-
+	// GET: /api/iconrequests/count
 	public async getCount(ctx: Context): Promise<void> {
 		try {
 			const count = await getConnection()
@@ -98,7 +52,8 @@ export class PublicController {
 		}
 	}
 
-	public async validateHashedPassword(ctx: Context): Promise<void> {
+	// @POST: /api/iconrequests/auth
+	public async verifyPassword(ctx: Context): Promise<void> {
 		try {
 			const username = ctx.request.body["username"];
 			const plainText = ctx.request.body["password"];

@@ -16,6 +16,11 @@ export const SecondaryTheme = createMuiTheme({
 	}
 });
 
-export const BASE_URL = "https://ayushm.dev/";
-export const PUBLIC_URL = "https://ayushm.dev/api/iconrequests";
+export const env = process.env.NODE_ENV || "development";
+export const isProduction = env == "production" ? true : false;
+
+export const PORT = 3000;
+export const BASE_URL = isProduction
+	? "https://ayushm.dev/api"
+	: `http://localhost:${PORT}`;
 export const API_KEY = "so9ZcJc1jm";

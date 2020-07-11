@@ -1,7 +1,7 @@
-import Koa from "koa";
-import Router from "@koa/router";
-import { PublicController } from "../controllers/PublicController";
 import { Context } from "koa";
+import Koa from "koa";
+import { PublicController } from "../controllers/PublicController";
+import Router from "@koa/router";
 
 export class PublicRouter {
 	router: Router;
@@ -24,16 +24,6 @@ export class PublicRouter {
 		// These routes are accessible by everyone.
 
 		console.log("Setting public routes...");
-
-		/*
-		 * @GET(/api/iconrequests)
-		 * Returns a list of icon requests
-		 * with pagination.
-		 */
-		this.router.get(
-			"/iconrequests/:offset/:limit",
-			this.controller.getPaginatedIconRequests
-		);
 		/*
 		 * @GET(/api/iconrequests)
 		 * Returns a list of distinct icon requests
@@ -42,19 +32,16 @@ export class PublicRouter {
 		this.router.get("/iconrequests", this.controller.getIconRequests);
 
 		/*
-		 * @GET(/api/iconrequests)
-		 * Returns a list of distinct icon requests
-		 * sorted by popularity in descending order.
+		 * @GET(/api/iconrequests/count)
+		 * Returns the total number of
+		 * icon requests
 		 */
-		this.router.get("/iconrequests/count", this.controller.getPendingCount);
+		this.router.get("/iconrequests/count", this.controller.getCount);
 
 		/*
 		 * @GET(/api/iconrequests/auth)
 		 *	Checks if passsword is valid
 		 */
-		this.router.post(
-			"/iconrequests/auth",
-			this.controller.validateHashedPassword
-		);
+		this.router.post("/iconrequests/auth", this.controller.verifyPassword);
 	}
 }

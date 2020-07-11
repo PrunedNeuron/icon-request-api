@@ -34,12 +34,12 @@ export class PrivateRouter {
 		 */
 
 		this.router
-			.get("/requests", this.controller.getIconRequests)
+			.get("/requests/:offset/:limit", this.controller.getIconRequests)
 			.post("/requests", this.controller.addIconRequests);
 
 		/*
 		 * @PUT(/api/iconrequests)
-		 * Takes a JSON object of type { id: number, status: "" }
+		 * Takes a JSON object of type { component: string, status: string }
 		 * as request and updates the status for the icon request
 		 * with the corresponding id.
 		 * Returns the status and message associated with the outcome.
@@ -50,9 +50,9 @@ export class PrivateRouter {
 		);
 
 		/*
-		 * @GET(/api/iconrequests)
-		 * Returns a list of distinct icon requests
-		 * sorted by popularity in descending order.
+		 * @GET(/api/iconrequests/count)
+		 * Returns the number of icon requests
+		 * that are still pending.
 		 */
 		this.router.get("/requests/count", this.controller.getCount);
 

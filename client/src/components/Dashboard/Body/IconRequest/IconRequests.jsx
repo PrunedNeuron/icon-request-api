@@ -1,8 +1,12 @@
-import React from "react";
-import axios from "axios";
+import { API_KEY, BASE_URL, PUBLIC_URL } from "../../../Constants";
+
+import { Card } from "@material-ui/core";
 import IconRequest from "./IconRequest";
+import React from "react";
+import SideBar from "../SideBar/SideBar";
 import { StyledPagination } from "./Styles";
-import { PUBLIC_URL, API_KEY } from "../../Constants";
+import axios from "axios";
+
 // const BASE_URL = "https://ayushm.dev/amphetamine/api/v1/requests/";
 
 class IconRequests extends React.Component {
@@ -25,20 +29,16 @@ class IconRequests extends React.Component {
 	}
 
 	async fetchIconRequests() {
-		console.log(
-			"Fetching",
-			`${PUBLIC_URL}/${this.state.offset}/${this.state.limit}`
-		);
 		const serverResponse = await axios({
 			method: "GET",
-			url: `${PUBLIC_URL}/${this.state.offset}/${this.state.limit}`,
+			url: `${BASE_URL}/requests/${this.state.offset}/${this.state.limit}`,
 			headers: {
 				"X-API-KEY": API_KEY
 			}
 		})
 			.then((response) => response.data)
 			.then((response) => {
-				// console.log("Response: " + response);
+				console.log("Response: " + response);
 				this.setState({
 					isLoading: false,
 					iconRequests: response
@@ -50,7 +50,10 @@ class IconRequests extends React.Component {
 	async fetchSize() {
 		const serverResponse = await axios({
 			method: "GET",
-			url: `${PUBLIC_URL}/count`
+			url: `${BASE_URL}/requests/count`,
+			headers: {
+				"X-API-KEY": API_KEY
+			}
 		})
 			.then((response) => response.data)
 			.then((response) => {
@@ -83,28 +86,30 @@ class IconRequests extends React.Component {
 	}
 
 	render() {
-		console.log("Size =", this.state.size);
+		/* 		console.log("Size =", this.state.size);
 		console.log("Pages =", this.state.pages);
-		let components = this.state.iconRequests.map((iconRequest) => {
-			const icon = {
-				id: iconRequest.id,
-				name: iconRequest.name,
-				component: iconRequest.component,
-				url: iconRequest.url,
-				requesters: iconRequest.requesters
-			};
+ */ let components = this.state.iconRequests.map(
+			(iconRequest) => {
+				const icon = {
+					id: iconRequest.id,
+					name: iconRequest.name,
+					component: iconRequest.component,
+					url: iconRequest.url,
+					requesters: iconRequest.requesters
+				};
 
-			return (
-				<IconRequest
-					key={icon.component}
-					id={icon.id}
-					name={icon.name}
-					component={icon.component}
-					url={icon.url}
-					requesters={icon.requesters}
-				/>
-			);
-		});
+				return (
+					<IconRequest
+						key={icon.component}
+						id={icon.id}
+						name={icon.name}
+						component={icon.component}
+						url={icon.url}
+						requesters={icon.requesters}
+					/>
+				);
+			}
+		);
 
 		return (
 			<>
@@ -112,7 +117,6 @@ class IconRequests extends React.Component {
 				<StyledPagination
 					count={this.state.pages}
 					onChange={this.handlePageChange}
-					color="inherit"
 					showFirstButton
 					showLastButton
 				/>
