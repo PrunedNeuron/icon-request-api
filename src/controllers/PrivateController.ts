@@ -142,8 +142,8 @@ export class PrivateController {
 		}
 	}
 
-	// @GET: /api/requests/update/component
-	public async getCount(ctx: Context): Promise<void> {
+	// @GET: /api/requests/count/pending
+	public async getPendingCount(ctx: Context): Promise<void> {
 		try {
 			if (!authenticate(ctx)) {
 				ctx.status = HttpStatusCodes.UNAUTHORIZED;
@@ -157,6 +157,71 @@ export class PrivateController {
 					.select("COUNT(*)", "count")
 					.from(IconRequest, "ir")
 					.where("status = :status", { status: "pending" })
+					.execute();
+
+				ctx.status = HttpStatusCodes.OK;
+				ctx.body = {
+					status: "SUCCESS",
+					count: count[0].count
+				};
+			}
+		} catch (error) {
+			ctx.status = HttpStatusCodes.INTERNAL_SERVER_ERROR;
+			ctx.body = {
+				status: "FAILURE",
+				message: error.message
+			};
+			console.log(error.message);
+		}
+	}
+
+	// @GET: /api/requests/count/done
+	public async getDoneCount(ctx: Context): Promise<void> {
+		try {
+			if (!authenticate(ctx)) {
+				ctx.status = HttpStatusCodes.UNAUTHORIZED;
+				ctx.body = {
+					status: "FAILURE",
+					message: "Failed to authenticate api key!"
+				};
+			} else {
+				const count = await getConnection()
+					.createQueryBuilder()
+					.select("COUNT(*)", "count")
+					.from(IconRequest, "ir")
+					.where("status = :status", { status: "done" })
+					.execute();
+
+				ctx.status = HttpStatusCodes.OK;
+				ctx.body = {
+					status: "SUCCESS",
+					count: count[0].count
+				};
+			}
+		} catch (error) {
+			ctx.status = HttpStatusCodes.INTERNAL_SERVER_ERROR;
+			ctx.body = {
+				status: "FAILURE",
+				message: error.message
+			};
+			console.log(error.message);
+		}
+	}
+
+	// @GET: /api/requests/count
+	public async getCount(ctx: Context): Promise<void> {
+		try {
+			if (!authenticate(ctx)) {
+				ctx.status = HttpStatusCodes.UNAUTHORIZED;
+				ctx.body = {
+					status: "FAILURE",
+					message: "Failed to authenticate api key!"
+				};
+			} else {
+				const count = await getConnection()
+					.createQueryBuilder()
+					.select("COUNT(*)", "count")
+					.from(IconRequest, "ir")
 					.execute();
 
 				ctx.status = HttpStatusCodes.OK;
