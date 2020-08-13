@@ -4,9 +4,9 @@
 	"main": "index.js",
 	"license": "MIT",
 	"scripts": {
-		"dev": "next",
+		"dev": "next -p 3001",
 		"build": "next build",
-		"start": "next start"
+		"start": "next start -p 3001"
 	},
 	"dependencies": {
 		"@emotion/core": "^10.0.28",
