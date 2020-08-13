@@ -6,14 +6,16 @@
 		"node_modules/**/node_modules",
 		"*.test.ts",
 		"dist",
+		"client",
 		"dist/**/*",
 		"client/node_modules",
 		"client/public",
 		".vscode",
-		"yarn.lock"
+		"yarn.lock",
+		"build/**/*"
 	],
 	"watch": ["."],
 	"delay": "2",
 	"verbose": true,
-	"exec": "tsc && node dist/server.js"
+	"exec": "tsc && node build/src/index.js"
 }
