@@ -1,21 +1,25 @@
 const withPlugins = require("next-compose-plugins");
 const rehypePrism = require("@mapbox/rehype-prism");
-const remarkCodeTitles = require("remark-code-titles");
-const remarkEmoji = require("remark-emoji");
-const readingTime = require("reading-time");
+const images = require("remark-images");
+const emoji = require("remark-emoji");
 
 const mdx = require("next-mdx-enhanced")({
-	layoutPath: "src/layouts",
 	defaultLayout: true,
 	fileExtensions: ["mdx"],
-	remarkPlugins: [remarkCodeTitles, remarkEmoji],
+	remarkPlugins: [images, emoji],
 	rehypePlugins: [rehypePrism],
 	extendFrontMatter: {
-		process: (mdxContent, frontMatter) => ({
-			wordCount: mdxContent.split(/\s+/gu).length,
-			readingTime: readingTime(mdxContent)
-		}),
+		process: (mdxContent, frontMatter) => {},
 		phase: "prebuild|loader|both"
+	}
+})({
+	target: "serverless",
+	webpack: function (config) {
+		config.module.rules.push({
+			test: /\.md$/,
+			use: "raw-loader"
+		});
+		return config;
 	}
 });
 

@@ -1,12 +1,36 @@
-import React from "react";
-import PageLayout from "../components/Layouts/PageLayout";
+import { Page } from "@zeit-ui/react";
+import Layout from "../components/Layout/Layout";
+import Header from "../components/Header/Header";
+import Footer from "../components/Footer/Footer";
+import Blog from "../components/Body/Blog/Blog";
+import { GetStaticProps } from "next";
+import { getSortedPosts } from "../lib/posts";
 
-import BlogPosts from "../components/Body/Blog/BlogPosts";
+/* const front = () => {};
 
-export default function Blog({ toggleTheme }) {
+const formatPath = (p) => p.replace(/\.mdx$/, "");
+const blogPosts: FrontMatter[] = Array.from(frontMatter); */
+
+export default function BlogIndex({ posts }) {
 	return (
-		<PageLayout toggleTheme={toggleTheme}>
-			<BlogPosts />
-		</PageLayout>
+		<>
+			<Page render="effect-seo" size="large">
+				<Header title="Ayush's blog" />
+				<Layout>
+					<Blog posts={posts} />
+				</Layout>
+				<Footer />
+			</Page>
+		</>
 	);
 }
+
+export const getStaticProps: GetStaticProps = async (context) => {
+	const posts = getSortedPosts();
+
+	return {
+		props: {
+			posts
+		}
+	};
+};

@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import marked from "marked";
 
 const postsDir = path.join(process.cwd(), "src/pages/blog/");
 
@@ -30,4 +31,32 @@ export function getSortedPosts() {
 			return -1;
 		}
 	});
+}
+
+export function getAllPostIds() {
+	const files = fs.readdirSync(postsDir);
+	return files.map((file) => {
+		return {
+			params: {
+				id: file.replace(/\.mdx$/, "")
+			}
+		};
+	});
+}
+
+export async function getPostData(id: string) {
+	const fullPath = path.join(postsDir, `${id}.mdx`);
+	const fileContents = fs.readFileSync(fullPath, "utf8");
+
+	// parse front matter
+	const frontMatter = matter(fileContents);
+
+	// convert markdown to HTML string
+	const processedContent = marked(frontMatter.content);
+
+	return {
+		id,
+		processedContent,
+		...(frontMatter.data as { date: string; title: string })
+	};
 }

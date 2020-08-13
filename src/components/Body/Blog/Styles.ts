@@ -1,26 +1,23 @@
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
-export const BlogPost = styled.div`
-	margin: 1rem;
-	flex-basis: 40%;
-	min-width: 400px;
-	flex-wrap: wrap;
+export const BodyContainer = styled.div`
+	padding: 2rem;
+	/* Neumorphism begin */
+	border-radius: 0.5rem;
+	box-shadow: 1px 10px 70px #dedede, 1px 1px 1px #ffffff;
+	/* Neumorphism end */
 `;
 
-export const Heading = styled.div`
-	margin: 1rem;
-`;
-
-export const Posts = styled.div`
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-`;
-
-export const Badges = styled.div``;
-
-export const BlogPostsContainer = styled.div`
+export const PostCard = styled.div`
 	display: inline-block;
-	max-width: 90%;
-	margin: 0 auto;
+	padding: 2rem;
+	height: 100px;
+	/* Neumorphism begin */
+	border-radius: 0.5rem;
+	box-shadow: 1px 10px 70px #dedede, 1px 1px 1px #ffffff;
+	/* Neumorphism end */
+`;
+
+export const PostsContainer = styled.div`
+	text-align: center;
 `;

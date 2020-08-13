@@ -1,12 +1,115 @@
-@import url(
-	https://fonts.googleapis.com/css?family=Inter:100,
-	200,
-	300,
-	regular,
-	500,
-	600,
-	700,
-	800,
-	900
-);
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,500;1,400&display=swap");
 
+strong {
+	font-weight: 600;
+}
+
+body {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-rendering: optimizeLegibility;
+	font-size: 1rem;
+	margin: 0;
+	padding: 0;
+	min-height: 100%;
+
+	overflow-x: hidden;
+	font-family: "Inter", sans-serif;
+}
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
+	text-rendering: geometricPrecision;
+	-webkit-tap-highlight-color: transparent;
+}
+
+code {
+	color: #5e5eff;
+	font-size: 1rem;
+}
+
+::selection {
+	color: white;
+	background: #5e5eff; /* WebKit/Blink Browsers */
+}
+
+::-moz-selection {
+	color: white;
+	background: #5e5eff; /* Gecko Browsers */
+}
+
+*:focus {
+	outline: none;
+}
+
+.noselect {
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: -moz-none;
+	-o-user-select: none;
+	user-select: none;
+}
+
+a {
+	cursor: pointer;
+	font-size: inherit;
+	-webkit-touch-callout: none;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	-webkit-box-align: center;
+	align-items: center;
+
+	color: inherit;
+	text-decoration: none;
+}
+ul,
+ol {
+	padding: 0;
+	margin: 1rem;
+}
+= h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: inherit;
+	margin: 0 0 0.625rem 0;
+}
+h1 {
+	font-size: 3rem;
+	letter-spacing: -0.066875rem;
+	line-height: 1.5;
+	font-weight: 700;
+}
+h2 {
+	font-size: 2.25rem;
+	letter-spacing: -0.020625rem;
+	font-weight: 600;
+}
+h3 {
+	font-size: 1.5rem;
+	letter-spacing: -0.029375rem;
+	font-weight: 600;
+}
+h4 {
+	font-size: 1.25rem;
+	letter-spacing: -0.020625rem;
+	font-weight: 500;
+}
+h5 {
+	font-size: 1rem;
+	letter-spacing: -0.01125rem;
+	font-weight: 600;
+}
+h6 {
+	font-size: 0.875rem;
+	letter-spacing: -0.005625rem;
+	font-weight: 600;
+}
+
+p {
+	line-height: 1.5rem;
+}

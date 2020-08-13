@@ -1,14 +1,18 @@
-import React from "react";
-import { Page } from "@zeit-ui/react";
-import Header from "../components/Header/Header";
-import Body from "../components/Body/Body";
 import Footer from "../components/Footer/Footer";
-import PageLayout from "../components/Layouts/PageLayout";
+import Header from "../components/Header/Header";
+import Body from "../components/Body/Home/Home";
+import { Page } from "@zeit-ui/react";
+import Layout from "../components/Layout/Layout";
+import HomeHeader from "../components/HomeHeader/HomeHeader";
 
-export default function Index({ toggleTheme }) {
+export default function Home() {
 	return (
-		<PageLayout toggleTheme={toggleTheme}>
-			<Body />
-		</PageLayout>
+		<Page render="effect-seo" size="large">
+			<Layout>
+				<HomeHeader />
+				<Body />
+			</Layout>
+			<Footer />
+		</Page>
 	);
 }

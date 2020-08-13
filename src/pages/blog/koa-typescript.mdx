@@ -1,33 +1,78 @@
 ---
-layout: "index"
 title: "Build a web server with Koa and TypeScript"
-date: "2020-07-21"
+date: "2019-01-07"
 description: "Get a server up and running within a few minutes."
-image: "https://user-images.githubusercontent.com/11304944/76085431-fd036480-5fec-11ea-8412-9e581425344a.png"
-tags: "typescript koa node backend"
 ---
 
+import { CopyBlock, a11yLight } from "react-code-blocks";
 import {
-	Card,
+	Page,
 	Spacer,
-	Row,
-	Col,
-	Link,
-	Image,
-	Text,
-	Divider,
-	Code,
-	Display,
+	Snippet,
 	Tree,
-	Snippet
+	Display,
+	Image,
+	Link
 } from "@zeit-ui/react";
+
+import CodeSnippets from "../../components/BlogPosts/KoaTypeScript/KoaTypeScript";
+import { BlogPostContainer } from "../../components/BlogPosts/Styles";
+const controllerCode = `
+import { Context } from "koa";
+export class Controller {
+	getMessage(ctx: Context) {
+		ctx.body = "Hello, world!";
+	}
+}`;
+const routerCode = `
+import Router from "@koa/router";
+import { Controller } from "../controller/controller";
+import Koa from 'koa';
+export default class CustomRouter {
+	router: Router;
+	controller: Controller;
+		constructor(app: Koa) {
+			this.router = new Router();
+			this.controller = new Controller();
+			this.setRoutes();
+			this.attachRoutes(app);
+		}
+		public setRoutes() {
+			this.router.get("/", this.controller.getMessage);
+		}
+		public attachRoutes(app: Koa) {
+			app.use(this.router.routes());
+			app.use(this.router.allowedMethods());
+		}
+}
+`;
+const appCode = `
+import Koa from "koa";
+import Router from "./routes/router";
+class App {
+	app: Koa;
+	router: Router;
+	constructor() {
+		this.app = new Koa();
+		this.router = new Router(this.app);
+	}
+}
+export default new App().app;
+`;
+const indexCode = `
+import App from "./App";
+const PORT = 3000;
+App.listen(PORT, () => console.log(\`Running on http://localhost:\${PORT}\`));
+`;
+const scriptsCode = `
+"scripts": {
+	"build": "tsc",
+	"start": "node build/index.js"
+}
+`;
 
 First, create a new folder/project/workspace in your preferred IDE / code editor.
 Run the following command to generate a package.json file,
-
-<Display>
-	<Image src="/blog/koa-typescript/1_term.png" width="500" />
-</Display>
 
 <Display
 	width="300px"
@@ -40,6 +85,12 @@ Run the following command to generate a package.json file,
 	}
 >
 	<Snippet text="yarn init --yes" />
+</Display>
+
+<Spacer y={1} />
+
+<Display shadow>
+	<Image src="/blog/koa-typescript/1_term.png" width="500" />
 </Display>
 
 You will then need to install the following packages
@@ -90,7 +141,7 @@ the following command (Add <code>"outDir": "build"</code> to your <code>
 
 <Spacer y={1} />
 
-<Display>
+<Display shadow>
 	<Image src="/blog/koa-typescript/2_term.png" width="500" />
 </Display>
 
@@ -119,89 +170,63 @@ We start from the bottom up, writing our controller first. The controller is sup
 
 For this tutorial, we will just send a response containing the message `Hello, world!` when our server receives a _GET_ request at it's root path (`/`). You will understand what this means as the tutorial progresses. For now, create the following method inside of a controller class defined in the `controller.ts` file,
 
-<Display>
+<Display shadow>
+	<div style={{ padding: "1rem" }}>
+		<CopyBlock text={controllerCode} theme={a11yLight} language="js" />
+	</div>
+</Display>
+<Spacer y={1} />
+
+<Display shadow>
 	<Image src="/blog/koa-typescript/4.png" width="500" />
 </Display>
 
-```ts
-import { Context } from "koa";
-export class Controller {
-	getMessage(ctx: Context) {
-		ctx.body = "Hello, world!";
-	}
-}
-```
-
 The `router.ts` file contains the following code,
 
-<Display>
+<Display shadow>
+	<div style={{ padding: "1rem" }}>
+		<CopyBlock text={routerCode} theme={a11yLight} language="js" />
+	</div>
+</Display>
+<Spacer y={1} />
+
+<Display shadow>
 	<Image src="/blog/koa-typescript/5.png" width="500" />
 </Display>
 
-```ts
-import Router from "@koa/router";
-import { Controller } from "../controller/controller";
-import Koa from "koa";
-export default class CustomRouter {
-	router: Router;
-	controller: Controller;
-	constructor(app: Koa) {
-		this.router = new Router();
-		this.controller = new Controller();
-		this.setRoutes();
-		this.attachRoutes(app);
-	}
-	public setRoutes() {
-		this.router.get("/", this.controller.getMessage);
-	}
-	public attachRoutes(app: Koa) {
-		app.use(this.router.routes());
-		app.use(this.router.allowedMethods());
-	}
-}
-```
-
 The `App.ts` file contains the heart of the application, binding everything together,
 
-<Display>
+<Display shadow>
+	<div style={{ padding: "1rem" }}>
+		<CopyBlock text={appCode} theme={a11yLight} language="js" />{" "}
+	</div>
+</Display>
+<Spacer y={1} />
+
+<Display shadow>
 	<Image src="/blog/koa-typescript/6.png" width="500" />
 </Display>
 
-```ts
-import Koa from "koa";
-import Router from "./routes/router";
-class App {
-	app: Koa;
-	router: Router;
-	constructor() {
-		this.app = new Koa();
-		this.router = new Router(this.app);
-	}
-}
-export default new App().app;
-```
-
 Finally, our server code, the `index.ts` file,
 
-<Display>
+<Display shadow>
+	<div style={{ padding: "1rem" }}>
+		<CopyBlock text={indexCode} theme={a11yLight} language="js" />
+	</div>
+</Display>
+<Spacer y={1} />
+
+<Display shadow>
 	<Image src="/blog/koa-typescript/7.png" width="500" />
 </Display>
 
-```ts
-import App from "./App";
-const PORT = 3000;
-App.listen(PORT, () => console.log(\`Running on http://localhost:\${PORT}\`));
-```
-
 Now, add the following scripts to your `package.json` file,
 
-```json
-"scripts": {
-	"build": "tsc",
-	"start": "node build/index.js"
-}
-```
-
+<Display shadow>
+	<div style={{ padding: "1rem" }}>
+		<CopyBlock text={scriptsCode} theme={a11yLight} language="json" />
+	</div>
+</Display>
 <Spacer y={1} />
 
 That's it, to run your app, build it using
@@ -236,12 +261,12 @@ and run it with the following command,
 
 You should see this on your console,
 
-<Display>
+<Display shadow>
 	<Image src="/blog/koa-typescript/8.png" width="500" />
 </Display>
 
-Use curl to check whether the server works,
+Similary, using curl,
 
-<Display>
+<Display shadow>
 	<Image src="/blog/koa-typescript/10.png" width="500" />
 </Display>

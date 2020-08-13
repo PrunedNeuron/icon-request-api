@@ -1,17 +1,4 @@
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
-export const Links = styled.div`
-	margin: 1rem;
-	float: right;
+export const HeaderContainer = styled.div`
 `;
-
-export const ThemeToggleButton = styled.div`
-	margin: 1rem;
-	float: left;
-`;
-
-export const HeadingContainer = styled.div`
-	display: inline-block;
-`;
-
-export const HeaderContainer = styled.div``;
