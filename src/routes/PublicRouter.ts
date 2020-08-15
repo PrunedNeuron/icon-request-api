@@ -43,5 +43,7 @@ export class PublicRouter {
 		 *	Checks if passsword is valid
 		 */
 		this.router.post("/iconrequests/auth", this.controller.verifyPassword);
+
+		this.router.get("/spotify", this.controller.getNowPlaying);
 	}
 }

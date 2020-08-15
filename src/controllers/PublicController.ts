@@ -4,6 +4,7 @@ import { IconRequest } from "../models/IconRequest";
 import { Context } from "koa";
 import { Password } from "../models/Password";
 import bcrypt from "bcrypt";
+import SpotifyService from "../service/SpotifyService";
 
 // Handles requests without header X-API-KEY
 export class PublicController {
@@ -90,6 +91,23 @@ export class PublicController {
 					};
 				}
 			}
+		} catch (error) {
+			ctx.status = HttpStatusCodes.INTERNAL_SERVER_ERROR;
+			ctx.body = {
+				status: "FAILURE",
+				message: error.message
+			};
+			console.log(error.message);
+		}
+	}
+
+	public async getNowPlaying(ctx: Context): Promise<void> {
+		try {
+			const nowPlaying = await SpotifyService();
+			const response = nowPlaying;
+
+			ctx.status = response.status;
+			ctx.body = response;
 		} catch (error) {
 			ctx.status = HttpStatusCodes.INTERNAL_SERVER_ERROR;
 			ctx.body = {
