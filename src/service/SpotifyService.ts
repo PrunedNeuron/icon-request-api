@@ -14,7 +14,6 @@ const getAccessToken = async () => {
 	const basic = Buffer.from(`${client_id}:${client_secret}`).toString(
 		"base64"
 	);
-
 	const response = await axios({
 		method: "POST",
 		url: TOKEN_ENDPOINT,
@@ -26,16 +25,16 @@ const getAccessToken = async () => {
 			grant_type: "refresh_token",
 			refresh_token
 		})
-	}).then((response) => response.data);
+	});
 
-	// console.log(response.data);
-	return response;
+	return response.data;
 };
 
 export default async () => {
 	const { access_token } = await getAccessToken();
 	const response = await axios({
 		url: NOW_PLAYING_ENDPOINT,
+		method: "GET",
 		headers: {
 			Authorization: `Bearer ${access_token}`
 		}
@@ -44,11 +43,12 @@ export default async () => {
 	const { status } = response;
 
 	if (status === 204 || status > 400) {
-		return { status: 200, isPlaying: false };
+		return { status: status, isPlaying: false };
 	}
 
-	const song = await response.data;
-	// console.log(song);
+	const song = response.data;
+
+	if (song === undefined) return { status: status, isPlaying: false };
 
 	const isPlaying = song.is_playing;
 	const title = song.item.name;
@@ -59,11 +59,11 @@ export default async () => {
 
 	return {
 		status: 200,
+		title,
 		album,
-		albumImageUrl,
 		artist,
-		isPlaying,
+		albumImageUrl,
 		songUrl,
-		title
+		isPlaying
 	};
 };
